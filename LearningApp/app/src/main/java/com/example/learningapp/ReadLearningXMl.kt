@@ -18,16 +18,190 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
         return input
     }
 
+    @Throws(XmlPullParserException::class, IOException::class)
+    private fun genLesson( parser: XmlPullParser):Lesson
+    {
+        var lesson:Lesson= Lesson()
+       var event = parser.eventType
+
+        while (event != XmlPullParser.END_DOCUMENT) {
+            var tag = parser.name
+            //when (event) {
+
+                if(event==XmlPullParser.START_TAG)  {
+                    Timber.i(tag)
+
+                    when (tag) {
+                        "text" -> {
+
+                        }
+                        "subject"->{
+
+                        }
+
+                        "question" -> {
+                         lesson.questions.plus(   genQuestion(parser))
+
+                        }
+
+                        "lesson" -> {
+
+                        }
+
+                        "answer" -> {
+
+                        }
+
+                    }
+                }
+
+                if(event==XmlPullParser.TEXT ){
+                if(tag =="text")
+                {
+                    lesson.text=parser.text
+                }
+                    Timber.i(parser.text)
+                }
+
+               if(event== XmlPullParser.END_TAG ) {
+                    Timber.i(tag)
+                    if(tag=="lesson"){
+                        break
+                    }
+
+                }
+          // }
+            event = parser.next()
+        }
+        return lesson
+    }
+    @Throws(XmlPullParserException::class, IOException::class)
+    private fun genQuestion( parser: XmlPullParser):Question
+    {
+        var question:Question= Question()
+        var event = parser.eventType
+
+        while (event != XmlPullParser.END_DOCUMENT) {
+            var tag = parser.name
+            //when (event) {
+
+            if(event==XmlPullParser.START_TAG)  {
+                Timber.i(tag)
+
+                when (tag) {
+                    "text" -> {
+
+                    }
+                    "subject"->{
+
+                    }
+
+                    "question" -> {
+
+
+                    }
+
+                    "lesson" -> {
+
+                    }
+
+                    "answer" -> {
+                        question.answer.plus(   genAnswer(parser))
+
+                    }
+
+                }
+            }
+
+            if(event==XmlPullParser.TEXT ){
+                if(tag =="text")
+                {
+                    question.text=parser.text
+                }
+                Timber.i(parser.text)
+            }
+
+            if(event== XmlPullParser.END_TAG ) {
+                Timber.i(tag)
+                if(tag=="question"){
+                    break
+                }
+
+            }
+            // }
+            event = parser.next()
+        }
+        return question
+    }
+    @Throws(XmlPullParserException::class, IOException::class)
+    private fun genAnswer( parser: XmlPullParser):Answer
+    {
+        var answer= Answer()
+        var event = parser.eventType
+
+        while (event != XmlPullParser.END_DOCUMENT) {
+            var tag = parser.name
+            //when (event) {
+
+            if(event==XmlPullParser.START_TAG)  {
+                Timber.i(tag)
+
+                when (tag) {
+                    "text" -> {
+
+                    }
+                    "subject"->{
+
+                    }
+
+                    "question" -> {
+
+
+                    }
+
+                    "lesson" -> {
+
+                    }
+
+                    "answer" -> {
+
+
+                    }
+
+                }
+            }
+
+            if(event==XmlPullParser.TEXT ){
+                if(tag =="text")
+                {
+                    answer.text=parser.text
+                }
+                Timber.i(parser.text)
+            }
+
+            if(event== XmlPullParser.END_TAG ) {
+                Timber.i(tag)
+                if(tag=="answer"){
+                    break
+                }
+
+            }
+            // }
+            event = parser.next()
+        }
+        return answer
+    }
+
 
     @Throws(XmlPullParserException::class, IOException::class)
     public fun Read(): Subject {
         val xmlFactoryObject = XmlPullParserFactory.newInstance()
         val myparser = xmlFactoryObject.newPullParser()
 
-        var value = Subject("", Atribut())
+        var value = Subject()
 
-        var presentElement: LearningElement = Subject("", Atribut())
-        var previusElement: LearningElement = Subject("", Atribut())
+       // var presentElement: LearningElement = Subject()
+        //var previusElement: LearningElement = Subject()
 
         myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         myparser.setInput(this.genStream(), null)
@@ -44,21 +218,24 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                     when (tag) {
                         "text" -> {
-                            presentElement.text = myparser.text
+
+                        }
+                        "subject"->{
+
                         }
 
                         "question" -> {
-                            presentElement = Question("", Atribut())
+
                         }
 
                         "lesson" -> {
-                            presentElement = Lesson("", Atribut())
+                            value.lessons.plus(genLesson(myparser))
+
                         }
 
                         "answer" -> {
-                            presentElement = Answer("", Atribut())
-                        }
 
+                        }
 
                     }
                 }
@@ -66,8 +243,6 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                 XmlPullParser.TEXT -> {
                     text = myparser.text
                     Timber.i(myparser.text)
-
-
                 }
 
                 XmlPullParser.END_TAG -> {
@@ -78,38 +253,24 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                         }
 
                         "question" -> {
-                            previusElement=presentElement
 
 
                         }
 
                         "lesson" -> {
-                            previusElement=presentElement
 
                         }
 
                         "answer" -> {
-                            previusElement=presentElement
+
 
                         }
-
-
                     }
                 }
-
-
             }
-
             event = myparser.next()
         }
 
-
-
-
-
-
         return value
     }
-
-
 }

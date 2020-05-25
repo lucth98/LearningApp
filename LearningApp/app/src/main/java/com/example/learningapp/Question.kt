@@ -1,6 +1,6 @@
 package com.example.learningapp
 
-class Question(override var text: String, override var atribut: Atribut):LearningElement() {
+class Question():LearningElement() {
     var answer:List<Answer> = listOf()
         get() = field
         set(value) {
@@ -9,6 +9,17 @@ class Question(override var text: String, override var atribut: Atribut):Learnin
     var name: String=""
         get()=field
         set(value) {field=value}
+
+    override var text: String=""
+        get() = field
+        set(value) {
+            field = value
+        }
+    override var atribut= Atribut()
+        get() = field
+        set(value) {
+            field = value
+        }
 
 }
 /*(
