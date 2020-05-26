@@ -4,6 +4,8 @@ abstract class LearningElement {
 
     abstract var text:String
 
-    abstract var atribut:Atribut
+
+
+    abstract  var atributList:MutableList<Atribut>
 
 }

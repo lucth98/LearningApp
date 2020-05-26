@@ -19,169 +19,114 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
-    private fun genLesson( parser: XmlPullParser):Lesson
-    {
-        var lesson:Lesson= Lesson()
-       var event = parser.eventType
-
-        while (event != XmlPullParser.END_DOCUMENT) {
-            var tag = parser.name
-            //when (event) {
-
-                if(event==XmlPullParser.START_TAG)  {
-                    Timber.i(tag)
-
-                    when (tag) {
-                        "text" -> {
-
-                        }
-                        "subject"->{
-
-                        }
-
-                        "question" -> {
-                         lesson.questions.plus(   genQuestion(parser))
-
-                        }
-
-                        "lesson" -> {
-
-                        }
-
-                        "answer" -> {
-
-                        }
-
-                    }
-                }
-
-                if(event==XmlPullParser.TEXT ){
-                if(tag =="text")
-                {
-                    lesson.text=parser.text
-                }
-                    Timber.i(parser.text)
-                }
-
-               if(event== XmlPullParser.END_TAG ) {
-                    Timber.i(tag)
-                    if(tag=="lesson"){
-                        break
-                    }
-
-                }
-          // }
-            event = parser.next()
-        }
-        return lesson
-    }
-    @Throws(XmlPullParserException::class, IOException::class)
-    private fun genQuestion( parser: XmlPullParser):Question
-    {
-        var question:Question= Question()
+    private fun genLesson(parser: XmlPullParser): Lesson {
+        var lesson: Lesson = Lesson()
         var event = parser.eventType
 
         while (event != XmlPullParser.END_DOCUMENT) {
             var tag = parser.name
             //when (event) {
 
-            if(event==XmlPullParser.START_TAG)  {
+            if (event == XmlPullParser.START_TAG) {
                 Timber.i(tag)
 
                 when (tag) {
-                    "text" -> {
-
-                    }
-                    "subject"->{
-
-                    }
-
                     "question" -> {
-
-
-                    }
-
-                    "lesson" -> {
+                        lesson.questions.add(genQuestion(parser))
 
                     }
-
-                    "answer" -> {
-                        question.answer.plus(   genAnswer(parser))
-
-                    }
-
                 }
             }
 
-            if(event==XmlPullParser.TEXT ){
-                if(tag =="text")
-                {
-                    question.text=parser.text
+            if (event == XmlPullParser.TEXT) {
+                if (tag == "text") {
+                    lesson.text = parser.text
                 }
                 Timber.i(parser.text)
             }
 
-            if(event== XmlPullParser.END_TAG ) {
+            if (event == XmlPullParser.END_TAG) {
                 Timber.i(tag)
-                if(tag=="question"){
+                if (tag == "lesson") {
                     break
                 }
+            }
+            // }
+            event = parser.next()
+        }
+        return lesson
+    }
 
+    @Throws(XmlPullParserException::class, IOException::class)
+    private fun genQuestion(parser: XmlPullParser): Question {
+        var question: Question = Question()
+        var event = parser.eventType
+
+        while (event != XmlPullParser.END_DOCUMENT) {
+            var tag = parser.name
+            //when (event) {
+
+            if (event == XmlPullParser.START_TAG) {
+                Timber.i(tag)
+
+                when (tag) {
+                    "answer" -> {
+                        question.answer.add(genAnswer(parser))
+
+                    }
+                }
+            }
+
+            if (event == XmlPullParser.TEXT) {
+                if (tag == "text") {
+                    question.text = parser.text
+                }
+                Timber.i(parser.text)
+            }
+
+            if (event == XmlPullParser.END_TAG) {
+                Timber.i(tag)
+                if (tag == "question") {
+                    break
+                }
             }
             // }
             event = parser.next()
         }
         return question
     }
+
     @Throws(XmlPullParserException::class, IOException::class)
-    private fun genAnswer( parser: XmlPullParser):Answer
-    {
-        var answer= Answer()
+    private fun genAnswer(parser: XmlPullParser): Answer {
+        var answer = Answer()
         var event = parser.eventType
 
         while (event != XmlPullParser.END_DOCUMENT) {
             var tag = parser.name
             //when (event) {
+            for (i in 0..parser.attributeCount step 1) {
+                var atribut: Atribut = Atribut()
+                atribut.name = parser.getAttributeName(i)
+                atribut.text = parser.getAttributeValue(i)
 
-            if(event==XmlPullParser.START_TAG)  {
-                Timber.i(tag)
-
-                when (tag) {
-                    "text" -> {
-
-                    }
-                    "subject"->{
-
-                    }
-
-                    "question" -> {
-
-
-                    }
-
-                    "lesson" -> {
-
-                    }
-
-                    "answer" -> {
-
-
-                    }
-
-                }
+                answer.atributList.add(atribut)
             }
 
-            if(event==XmlPullParser.TEXT ){
-                if(tag =="text")
-                {
-                    answer.text=parser.text
+
+            if (event == XmlPullParser.START_TAG) {
+                Timber.i(tag)
+            }
+
+            if (event == XmlPullParser.TEXT) {
+                if (tag == "text") {
+                    answer.text = parser.text
                 }
                 Timber.i(parser.text)
             }
 
-            if(event== XmlPullParser.END_TAG ) {
+            if (event == XmlPullParser.END_TAG) {
                 Timber.i(tag)
-                if(tag=="answer"){
+                if (tag == "answer") {
                     break
                 }
 
@@ -200,7 +145,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
         var value = Subject()
 
-       // var presentElement: LearningElement = Subject()
+        // var presentElement: LearningElement = Subject()
         //var previusElement: LearningElement = Subject()
 
         myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
@@ -220,7 +165,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                         "text" -> {
 
                         }
-                        "subject"->{
+                        "subject" -> {
 
                         }
 
@@ -229,7 +174,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                         }
 
                         "lesson" -> {
-                            value.lessons.plus(genLesson(myparser))
+                            value.lessons.add(genLesson(myparser))
 
                         }
 
@@ -247,25 +192,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                 XmlPullParser.END_TAG -> {
                     Timber.i(tag)
-                    when (tag) {
-                        "text" -> {
 
-                        }
-
-                        "question" -> {
-
-
-                        }
-
-                        "lesson" -> {
-
-                        }
-
-                        "answer" -> {
-
-
-                        }
-                    }
                 }
             }
             event = myparser.next()

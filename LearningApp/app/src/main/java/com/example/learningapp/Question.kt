@@ -1,7 +1,7 @@
 package com.example.learningapp
 
 class Question():LearningElement() {
-    var answer:List<Answer> = listOf()
+    var answer:MutableList<Answer> = mutableListOf()
         get() = field
         set(value) {
             field = value
@@ -15,10 +15,11 @@ class Question():LearningElement() {
         set(value) {
             field = value
         }
-    override var atribut= Atribut()
-        get() = field
-        set(value) {
-            field = value
+
+    override  var atributList: MutableList<Atribut> = mutableListOf()
+        get() =field
+        set(value:MutableList<Atribut>) {
+            field=(value)
         }
 
 }

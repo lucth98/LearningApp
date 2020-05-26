@@ -3,4 +3,8 @@
     <string name="heading_Text">Learning_App</string>
     <string name="Start_button_Text">Start</string>
     <string name="Option_Button_Text">Option</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="String_questions">Questions</string>
 </resources>

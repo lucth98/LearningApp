@@ -7,10 +7,11 @@ class Answer( ) : LearningElement() {
         set(value) {
             field = value
         }
-    override var atribut= Atribut()
-        get() = field
-        set(value) {
-            field = value
+
+    override  var atributList: MutableList<Atribut> = mutableListOf()
+        get() =field
+        set(value:MutableList<Atribut>) {
+            field=(value)
         }
 
 }
