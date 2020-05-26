@@ -1,10 +1,12 @@
 package com.example.learningapp
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import com.example.learningapp.databinding.FragmentQuestionBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +32,29 @@ class QuestionFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
+     // binding.RadioGroupQuestions.addView(null)
+
+
+
+    }
+
+
+    private fun addButtons(question: Question,context: Context){
+        binding.textViewQuestionText.text=question.text
+
+        for(i in 0..question.answer.lastIndex){
+            var radioButton:RadioButton= RadioButton(context)
+            radioButton.text=question.answer[i].text
+
+
+            binding.RadioGroupQuestions.addView(radioButton)
+
+        }
+
+
+
     }
 
     override fun onCreateView(
