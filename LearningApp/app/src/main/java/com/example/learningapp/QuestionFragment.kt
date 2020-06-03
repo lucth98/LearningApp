@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.databinding.DataBindingUtil
 import com.example.learningapp.databinding.FragmentQuestionBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -61,8 +62,11 @@ class QuestionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_question,container,false)
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question, container, false)
+        return binding.root //inflater.inflate(R.layout.fragment_question, container, false)
     }
 
     companion object {
