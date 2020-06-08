@@ -64,8 +64,8 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
             if (event == XmlPullParser.TEXT) {
 
-                    Timber.i("lesson text=" + parser.text + " tag=" + tag)
-                    lesson.text += parser.text.trim()
+                Timber.i("lesson text=" + parser.text + " tag=" + tag)
+                lesson.text += parser.text.trim()
 
             }
 
@@ -105,8 +105,8 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
             if (event == XmlPullParser.TEXT) {
 
 
-                    Timber.i("qestion text=" + parser.text + " tag=" + tag)
-                    question.text += parser.text.trim()
+                Timber.i("qestion text=" + parser.text + " tag=" + tag)
+                question.text += parser.text.trim()
 
             }
 
@@ -146,8 +146,8 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
             if (event == XmlPullParser.TEXT) {
 
-                    answer.text = parser.text.trim()
-                    Timber.i("lesson text=" + parser.text + " tag=" + tag)
+                answer.text = parser.text.trim()
+                Timber.i("lesson text=" + parser.text + " tag=" + tag)
 
             }
 

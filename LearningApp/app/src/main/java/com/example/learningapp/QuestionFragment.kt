@@ -65,7 +65,11 @@ class QuestionFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question, container, false)
         Timber.i("onCreate_Beginn")
 
@@ -92,18 +96,19 @@ class QuestionFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root //inflater.inflate(R.layout.fragment_question, container, false)
     }
-    private  fun finshButtonAction()
-    {
-        binding.textViewResult.text=checkAnswer().toString()
-       
+
+    private fun finshButtonAction() {
+        binding.textViewResult.text = checkAnswer().toString()
+
     }
 
     private fun checkAnswer(): Boolean {
         for (i in 0..question.answer.size - 1) {
             for (atribut in question.answer[i].atributList) {
                 if (atribut.name.compareTo("isCorrect") == 0 && atribut.text.compareTo("true") == 0) {
-
+                    
                     var button = binding.RadioGroupQuestions.get(i)
+
                     if (button is RadioButton) {
                         if (!button.isChecked) {
                             return false
