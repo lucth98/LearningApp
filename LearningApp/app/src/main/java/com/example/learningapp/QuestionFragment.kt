@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.databinding.DataBindingUtil
 import com.example.learningapp.databinding.FragmentQuestionBinding
+import timber.log.Timber
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class QuestionFragment : Fragment() {
-    private lateinit var binding:FragmentQuestionBinding
+    private lateinit var binding: FragmentQuestionBinding
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -35,36 +36,53 @@ class QuestionFragment : Fragment() {
         }
 
 
-     // binding.RadioGroupQuestions.addView(null)
-
+        // binding.RadioGroupQuestions.addView(null)
 
 
     }
 
 
-    private fun addButtons(question: Question,context: Context){
-        binding.textViewQuestionText.text=question.text
+    private fun addButtons(question: Question, context: Context) {
+        var radioButton: RadioButton
+        Timber.i("abbButtons_Beginn")
+        Timber.i(question.text)
 
-        for(i in 0..question.answer.lastIndex){
-            var radioButton:RadioButton= RadioButton(context)
-            radioButton.text=question.answer[i].text
+        binding.textViewQuestionText.text = question.text
 
+        for (i in 0..question.answer.size-1) {
+             radioButton = RadioButton(context)
+            radioButton.text = question.answer[i].text
+            Timber.i("Antwort NR= "+i+" text= "+question.answer[i].text)
 
             binding.RadioGroupQuestions.addView(radioButton)
 
+
         }
-
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_question,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question, container, false)
+        Timber.i("onCreate_Beginn")
+
+        try {
 
 
+            var xmlReader = this.context?.let { ReadLearningXMl(it, "testlearning2.xml") }
+            var subject: Subject = xmlReader!!.Read()
+
+           xmlReader.testSubject(subject)
+
+            this.context?.let { addButtons(subject.lessons[0].questions[0], it) }
+        }catch(e:Exception)
+        {
+            Timber.i("Error")
+            Timber.i(e)
+
+        }
+        Timber.i("onCreate_Ende")
         // Inflate the layout for this fragment
         return binding.root //inflater.inflate(R.layout.fragment_question, container, false)
     }

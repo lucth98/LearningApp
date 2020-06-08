@@ -21,37 +21,39 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="731dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/String_questions" />
-
-            <RadioGroup
-                android:id="@+id/RadioGroupQuestions"
-                android:layout_width="67dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="411dp"
-                android:layout_marginRight="411dp"
-                android:visibility="visible"
-                tools:visibility="visible">
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="RadioButton"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </RadioGroup>
 
             <TextView
                 android:id="@+id/textViewQuestionText"
-                android:layout_width="115dp"
-                android:layout_height="88dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="411dp"
-                android:layout_marginRight="411dp"
-                android:layout_marginBottom="731dp"
+                android:layout_width="223dp"
+                android:layout_height="57dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
                 android:visibility="visible"
                 tools:text="test" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <RadioGroup
+                        android:id="@+id/RadioGroupQuestions"
+                        android:layout_width="160dp"
+                        android:layout_height="347dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="411dp"
+                        android:visibility="visible"
+                        tools:visibility="visible" />
+                </LinearLayout>
+            </ScrollView>
 
 
         </LinearLayout>
