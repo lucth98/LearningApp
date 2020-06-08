@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import com.example.learningapp.databinding.FragmentQuestionBinding
 import timber.log.Timber
@@ -23,6 +24,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class QuestionFragment : Fragment() {
     private lateinit var binding: FragmentQuestionBinding
+    private lateinit var question: Question
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -42,17 +44,20 @@ class QuestionFragment : Fragment() {
     }
 
 
-    private fun addButtons(question: Question, context: Context) {
+    private fun addButtons(context: Context) {
         var radioButton: RadioButton
         Timber.i("abbButtons_Beginn")
         Timber.i(question.text)
 
         binding.textViewQuestionText.text = question.text
 
-        for (i in 0..question.answer.size-1) {
-             radioButton = RadioButton(context)
+        for (i in 0..question.answer.size - 1) {
+            radioButton = RadioButton(context)
             radioButton.text = question.answer[i].text
-            Timber.i("Antwort NR= "+i+" text= "+question.answer[i].text)
+
+            radioButton.id = i
+
+            Timber.i("Antwort NR= " + i + " text= " + question.answer[i].text)
 
             binding.RadioGroupQuestions.addView(radioButton)
 
@@ -60,24 +65,25 @@ class QuestionFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question, container, false)
         Timber.i("onCreate_Beginn")
 
         try {
-
-
             var xmlReader = this.context?.let { ReadLearningXMl(it, "testlearning2.xml") }
             var subject: Subject = xmlReader!!.Read()
 
-           xmlReader.testSubject(subject)
+            xmlReader.testSubject(subject)
+            question = subject.lessons[0].questions[0]
 
-            this.context?.let { addButtons(subject.lessons[0].questions[0], it) }
-        }catch(e:Exception)
-        {
+            this.context?.let { addButtons(it) }
+
+
+            binding.buttonFinish.setOnClickListener {
+                finshButtonAction()
+            }
+
+        } catch (e: Exception) {
             Timber.i("Error")
             Timber.i(e)
 
@@ -85,6 +91,28 @@ class QuestionFragment : Fragment() {
         Timber.i("onCreate_Ende")
         // Inflate the layout for this fragment
         return binding.root //inflater.inflate(R.layout.fragment_question, container, false)
+    }
+    private  fun finshButtonAction()
+    {
+        binding.textViewResult.text=checkAnswer().toString()
+       
+    }
+
+    private fun checkAnswer(): Boolean {
+        for (i in 0..question.answer.size - 1) {
+            for (atribut in question.answer[i].atributList) {
+                if (atribut.name.compareTo("isCorrect") == 0 && atribut.text.compareTo("true") == 0) {
+
+                    var button = binding.RadioGroupQuestions.get(i)
+                    if (button is RadioButton) {
+                        if (!button.isChecked) {
+                            return false
+                        }
+                    }
+                }
+            }
+        }
+        return true
     }
 
     companion object {

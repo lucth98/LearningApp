@@ -49,7 +49,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
         while (event != XmlPullParser.END_DOCUMENT) {
             var tag = parser.name
-            //when (event) {
+
 
             if (event == XmlPullParser.START_TAG) {
                 Timber.i(tag)
@@ -63,11 +63,6 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
             }
 
             if (event == XmlPullParser.TEXT) {
-                /* if (tag == "text") {
-                     Timber.i("lesson text="+parser.text)
-                     lesson.text = parser.text
-                 }*/
-                //  Timber.i(parser.text)
 
                     Timber.i("lesson text=" + parser.text + " tag=" + tag)
                     lesson.text += parser.text.trim()
@@ -80,7 +75,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                     break
                 }
             }
-            // }
+
             event = parser.next()
         }
         return lesson
@@ -94,7 +89,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
         while (event != XmlPullParser.END_DOCUMENT) {
             var tag = parser.name
-            //when (event) {
+
 
             if (event == XmlPullParser.START_TAG) {
                 Timber.i(tag)
@@ -108,11 +103,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
             }
 
             if (event == XmlPullParser.TEXT) {
-                /*if (tag == "text") {
-                    Timber.i("qestion text="+parser.text)
-                    question.text = parser.text
-                }*/
-                // Timber.i(parser.text)
+
 
                     Timber.i("qestion text=" + parser.text + " tag=" + tag)
                     question.text += parser.text.trim()
@@ -125,7 +116,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                     break
                 }
             }
-            // }
+
             event = parser.next()
         }
         return question
@@ -139,11 +130,11 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
         while (event != XmlPullParser.END_DOCUMENT) {
             var tag = parser.name
-            //when (event) {
+
             for (i in 0..parser.attributeCount - 1 step 1) {
                 var atribut: Atribut = Atribut()
-                atribut.name = parser.getAttributeName(i)
-                atribut.text = parser.getAttributeValue(i)
+                atribut.name = parser.getAttributeName(i).trim()
+                atribut.text = parser.getAttributeValue(i).trim()
 
                 answer.atributList.add(atribut)
             }
@@ -154,11 +145,6 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
             }
 
             if (event == XmlPullParser.TEXT) {
-                /*if (tag == "text") {
-                    answer.text = parser.text
-                    Timber.i("lesson text="+parser.text)
-                }*/
-                // Timber.i(parser.text)
 
                     answer.text = parser.text.trim()
                     Timber.i("lesson text=" + parser.text + " tag=" + tag)
@@ -172,7 +158,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                 }
 
             }
-            // }
+
             event = parser.next()
         }
         return answer
@@ -186,9 +172,6 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
         var value = Subject()
 
-        // var presentElement: LearningElement = Subject()
-        //var previusElement: LearningElement = Subject()
-
         myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         myparser.setInput(this.genStream(), null)
         var event = myparser.eventType
@@ -200,27 +183,12 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
             when (event) {
 
                 XmlPullParser.START_TAG -> {
-                    //Timber.i(tag)
+
 
                     when (tag) {
-                        "text" -> {
-
-                        }
-                        "subject" -> {
-
-                        }
-
-                        "question" -> {
-
-                        }
 
                         "lesson" -> {
                             value.lessons.add(genLesson(myparser))
-
-                        }
-
-                        "answer" -> {
-
                         }
 
                     }
@@ -228,11 +196,9 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                 XmlPullParser.TEXT -> {
                     text = myparser.text
-                    //    Timber.i(myparser.text)
                 }
 
                 XmlPullParser.END_TAG -> {
-                    //   Timber.i(tag)
 
                 }
             }
