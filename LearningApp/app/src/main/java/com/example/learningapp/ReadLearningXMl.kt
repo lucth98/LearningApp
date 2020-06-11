@@ -166,7 +166,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
 
     @Throws(XmlPullParserException::class, IOException::class)
-    public fun Read(): Subject {
+    public fun read(): Subject {
         val xmlFactoryObject = XmlPullParserFactory.newInstance()
         val myparser = xmlFactoryObject.newPullParser()
 

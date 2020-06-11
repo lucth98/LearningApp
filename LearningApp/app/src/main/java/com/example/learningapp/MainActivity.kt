@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
       /*  var readLearningXMl:ReadLearningXMl= ReadLearningXMl(this,"<?xml version=\"1.0\" encoding=\"utf-8\"?><!DOCTYPE subject [<!--    -->\n    <!ELEMENT subject (text,lesson)>\n    <!ELEMENT text  (#PCDATA)><!ELEMENT lesson (text, question*)>\n\n    <!ELEMENT answer (#PCDATA)><!ELEMENT question (text,answer*)>\n    <!ATTLIST answer\n        isCorrect (true|false) #REQUIRED\n        >\n\n    ]>\n<subject>\n    <text> testfach</text>\n    <lesson>\n        <text>Bla Bla</text>\n        <question>\n            <text>\n                5*5=?\n            </text>\n            <answer isCorrect=\"true\">\n                25\n            </answer>\n            <answer isCorrect=\"false\">\n                5\n            </answer>\n            <answer isCorrect=\"false\">\n                -10\n            </answer>\n        </question>\n    </lesson>\n</subject>")
-        readLearningXMl.Read()*/
+        readLearningXMl.read()*/
 
     }
 }

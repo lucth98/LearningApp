@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject [<!--    -->
-    <!ELEMENT subject (text,lesson)>
+    <!ELEMENT subject (text,lesson*)>
     <!ELEMENT text  (#PCDATA)>
     <!ELEMENT lesson (text, question*)>
     <!ELEMENT answer (#PCDATA)>
@@ -12,7 +12,7 @@
 <subject>
     <text> testfach</text>
     <lesson>
-        <text>Bla Bla</text>
+        <text>lesson 1</text>
         <question>
             <text>
                 5*5=?
@@ -26,6 +26,23 @@
             <answer isCorrect="false">
                 -10
             </answer>
+        </question>
+    </lesson>
+    <lesson>
+        <text>lesson 2</text>
+        <question>
+            <text>4!</text>
+            <answer isCorrect="true">24</answer>
+            <answer isCorrect="false">6</answer>
+            <answer isCorrect="false">1243</answer>
+        </question>
+    </lesson>
+    <lesson>
+        <text>lesson -1</text>
+        <question>
+            <text>bdhiviuer</text>
+            <answer isCorrect="false">ew</answer>
+            <answer isCorrect="true">-1</answer>
         </question>
     </lesson>
 </subject>

@@ -11,9 +11,6 @@
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
-            android:id="@+id/action_startFragment_to_questionFragment"
-            app:destination="@id/questionFragment" />
-        <action
             android:id="@+id/action_startFragment_to_fragmentMenue2"
             app:destination="@id/fragmentMenue" />
     </fragment>
@@ -24,5 +21,17 @@
     <fragment
         android:id="@+id/fragmentMenue"
         android:name="com.example.learningapp.FragmentMenue"
-        android:label="FragmentMenue" />
+        android:label="FragmentMenue" >
+        <action
+            android:id="@+id/action_fragmentMenue_to_fragment_info"
+            app:destination="@id/fragment_info" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_info"
+        android:name="com.example.learningapp.Fragment_info"
+        android:label="Fragment_info" >
+        <action
+            android:id="@+id/action_fragment_info_to_questionFragment"
+            app:destination="@id/questionFragment" />
+    </fragment>
 </navigation>

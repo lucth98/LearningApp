@@ -75,7 +75,7 @@ class QuestionFragment : Fragment() {
 
         try {
             var xmlReader = this.context?.let { ReadLearningXMl(it, "testlearning2.xml") }
-            var subject: Subject = xmlReader!!.Read()
+            var subject: Subject = xmlReader!!.read()
 
             xmlReader.testSubject(subject)
             question = subject.lessons[0].questions[0]
@@ -106,7 +106,7 @@ class QuestionFragment : Fragment() {
         for (i in 0..question.answer.size - 1) {
             for (atribut in question.answer[i].atributList) {
                 if (atribut.name.compareTo("isCorrect") == 0 && atribut.text.compareTo("true") == 0) {
-                    
+
                     var button = binding.RadioGroupQuestions.get(i)
 
                     if (button is RadioButton) {
