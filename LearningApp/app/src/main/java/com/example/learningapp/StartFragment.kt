@@ -45,7 +45,7 @@ class StartFragment : Fragment() {
         // Inflate the layout for this fragment
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_start,container,false)
 
-        binding.StartButton.setOnClickListener (Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_questionFragment))
+        binding.StartButton.setOnClickListener (Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_fragmentMenue2))
 
         return binding.root//inflater.inflate(R.layout.fragment_start, container, false)
     }

@@ -13,9 +13,16 @@
         <action
             android:id="@+id/action_startFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_fragmentMenue2"
+            app:destination="@id/fragmentMenue" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.example.learningapp.QuestionFragment"
         android:label="QuestionFragment" />
+    <fragment
+        android:id="@+id/fragmentMenue"
+        android:name="com.example.learningapp.FragmentMenue"
+        android:label="FragmentMenue" />
 </navigation>

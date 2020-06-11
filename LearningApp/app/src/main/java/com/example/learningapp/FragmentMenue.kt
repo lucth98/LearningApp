@@ -1,5 +1,6 @@
 package com.example.learningapp
 
+import android.content.res.AssetManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.learningapp.databinding.FragmentMenueBinding
 import com.example.learningapp.databinding.FragmentStartBinding
+import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,6 +49,14 @@ class FragmentMenue : Fragment() {
     ): View? {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_menue,container,false)
         // Inflate the layout for this fragment
+
+        for (name:String in getFilenames()){
+
+            binding.textViewTest.text = binding.textViewTest.text.toString() + name
+        }
+
+
+
         return binding.root//inflater.inflate(R.layout.fragment_menue, container, false)
     }
 
@@ -69,4 +79,55 @@ class FragmentMenue : Fragment() {
                 }
             }
     }
+
+
+
+
+
+
+
+
+
+
+    private fun getFilenames():MutableList<String>{
+       /* var file:File=File("assets")
+        var files=file.listFiles()
+        var result:MutableList<String> = mutableListOf()
+
+        for(i in 0 until files.size){
+            result.add(files[i.toInt()].name)
+        }
+            return result*/
+
+
+        var result:MutableList<String> = mutableListOf()
+
+        var assetManager:AssetManager= requireContext().getAssets()
+
+      for(file in assetManager.list("LearnigFiles")!!)
+      {
+          result.add(file)
+          result.add("\n")
+      }
+
+
+
+
+
+        return result
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 }

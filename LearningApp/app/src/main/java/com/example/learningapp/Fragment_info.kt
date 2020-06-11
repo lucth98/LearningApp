@@ -42,7 +42,7 @@ class Fragment_info : Fragment() {
         // Inflate the layout for this fragment
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_info,container,false)
 
-        
+
         return binding.root//inflater.inflate(R.layout.fragment_info, container, false)
     }
 
