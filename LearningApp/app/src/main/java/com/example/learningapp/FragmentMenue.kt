@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.example.learningapp.databinding.FragmentMenueBinding
 import timber.log.Timber
 
@@ -115,7 +116,7 @@ class FragmentMenue : Fragment() {
 
         }
         popupMenu.setOnMenuItemClickListener {
-            onMenuItemClick(it ,itemList)
+            onMenuItemClick(it ,itemList,subject)
 
         }
 
@@ -126,12 +127,30 @@ class FragmentMenue : Fragment() {
 
 
     @Override
-    private fun onMenuItemClick(item: MenuItem,itemList:MutableList<String>):Boolean
+    private fun onMenuItemClick(item: MenuItem,itemList:MutableList<String>,subject: Subject):Boolean
     {
 
         if(item.itemId<itemList.size){
 
             binding.textViewTest.text=itemList[item.itemId]
+
+            var serilLearningElement=SerilLearningElement()
+
+
+
+
+            for( less in subject.lessons)
+            {
+                if(less.text==itemList[item.itemId]){
+                   serilLearningElement.learningElement=less
+
+                }
+            }
+
+
+
+           // findNavController().navigate(R.id.action_fragmentMenue_to_fragment_info,serilLearningElement)
+
 
             return true
         }
