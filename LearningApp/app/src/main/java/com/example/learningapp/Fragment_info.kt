@@ -103,8 +103,8 @@ class Fragment_info : Fragment() {
                     serilLearningElement.learningElement=quest
 
 
-                    var action =FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
-
+                //    var action =FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
+                var action=Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)  //Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)
 
                     findNavController().navigate(action)
                 }

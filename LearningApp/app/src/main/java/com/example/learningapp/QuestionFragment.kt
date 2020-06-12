@@ -77,8 +77,16 @@ class QuestionFragment : Fragment() {
             var xmlReader = this.context?.let { ReadLearningXMl(it, "testlearning2.xml") }
             var subject: Subject = xmlReader!!.read()
 
-            xmlReader.testSubject(subject)
-            question = subject.lessons[0].questions[0]
+         /*   xmlReader.testSubject(subject)
+            question = subject.lessons[0].questions[0]*/
+            var element =  arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement}
+            if (element is Question) {
+                question = element
+
+            }
+            else{
+                Timber.i("Keine Frage")
+            }
 
             this.context?.let { addButtons(it) }
 
