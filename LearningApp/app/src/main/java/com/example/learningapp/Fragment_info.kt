@@ -104,7 +104,7 @@ class Fragment_info : Fragment() {
 
 
                 //    var action =FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
-                var action=Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)  //Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)
+                var action=Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)//Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)
 
                     findNavController().navigate(action)
                 }

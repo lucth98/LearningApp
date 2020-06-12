@@ -34,11 +34,11 @@
         android:id="@+id/fragment_info"
         android:name="com.example.learningapp.Fragment_info"
         android:label="Fragment_info" >
-        <action
-            android:id="@+id/action_fragment_info_to_questionFragment"
-            app:destination="@id/questionFragment" />
         <argument
             android:name="resived_learnigElement"
             app:argType="com.example.learningapp.SerilLearningElement" />
+        <action
+            android:id="@+id/action_fragment_info_to_questionFragment"
+            app:destination="@id/questionFragment" />
     </fragment>
 </navigation>

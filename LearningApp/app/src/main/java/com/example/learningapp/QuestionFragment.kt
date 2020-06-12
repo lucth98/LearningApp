@@ -79,7 +79,8 @@ class QuestionFragment : Fragment() {
 
          /*   xmlReader.testSubject(subject)
             question = subject.lessons[0].questions[0]*/
-            var element =  arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement}
+            var element =
+                arguments?.let { QuestionFragmentArgs.fromBundle(it).recivedLearning.learningElement } //arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement}
             if (element is Question) {
                 question = element
 
