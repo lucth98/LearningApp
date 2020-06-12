@@ -123,7 +123,7 @@ class FragmentMenue : Fragment() {
 
 
 
-             itemList.add(subject.lessons[i].text)
+             itemList.add(subject.lessons[i].getName())
 
         }
         popupMenu.setOnMenuItemClickListener {
@@ -152,9 +152,13 @@ class FragmentMenue : Fragment() {
 
             for( less in subject.lessons)
             {
-                if(less.text==itemList[item.itemId]){
+                if(less.getName()==itemList[item.itemId]){
                    serilLearningElement.learningElement=less
 
+
+                    var action =FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
+
+                    findNavController().navigate(action)
                 }
             }
 

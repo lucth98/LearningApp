@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.learningapp.databinding.FragmentInfoBinding
+import timber.log.Timber
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +22,7 @@ private const val ARG_PARAM2 = "param2"
 class Fragment_info : Fragment() {
 
     private lateinit var binding: FragmentInfoBinding
+    private lateinit var lesson: Lesson
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -41,7 +43,19 @@ class Fragment_info : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_info,container,false)
+        try {
+            var element = arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement }
 
+
+            if (element is Lesson) {
+                lesson = element
+                 binding.textViewHeading.text=lesson.getName()
+                binding.textViewInfo.text=lesson.text
+            }
+        }
+        catch (e:Exception){
+            Timber.i(e)
+        }
 
         return binding.root//inflater.inflate(R.layout.fragment_info, container, false)
     }

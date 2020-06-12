@@ -19,7 +19,7 @@
 <subject Name="Test">
     <text> testfach</text>
     <lesson Name="lesson 1">
-        <text>lesson 1</text>
+        <text>lesson 1 esfewf</text>
         <question Name="Question 1">
             <text>
                 5*5=?
@@ -36,7 +36,7 @@
         </question>
     </lesson>
     <lesson Name="lesson 2">
-        <text>lesson 2</text>
+        <text>lesson 2  sdfkueggkuzfugzeizl</text>
         <question Name="Frage 1">
             <text>4!</text>
             <answer isCorrect="true">24</answer>
@@ -45,7 +45,8 @@
         </question>
     </lesson>
     <lesson Name="Lesson 3">
-        <text>lesson -1</text>
+        <text>lesson -1 sfgiuewiluh efwilugilzif iuuggiu f
+        </text>
         <question Name="bhbhdd">
             <text>bdhiviuer</text>
             <answer isCorrect="false">ew</answer>
