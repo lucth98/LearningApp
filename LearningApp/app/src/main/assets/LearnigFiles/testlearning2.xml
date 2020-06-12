@@ -6,14 +6,21 @@
     <!ELEMENT question (text,answer*)>
     <!ATTLIST answer
         isCorrect (true|false) #REQUIRED
+
         >
+    <!ATTLIST subject
+        Name   CDATA #REQUIRED>
+    <!ATTLIST lesson
+        Name   CDATA #REQUIRED>
+    <!ATTLIST question
+        Name   CDATA #REQUIRED>
 
     ]>
-<subject>
+<subject Name="Test">
     <text> testfach</text>
-    <lesson>
+    <lesson Name="lesson 1">
         <text>lesson 1</text>
-        <question>
+        <question Name="Question 1">
             <text>
                 5*5=?
             </text>
@@ -28,18 +35,18 @@
             </answer>
         </question>
     </lesson>
-    <lesson>
+    <lesson Name="lesson 2">
         <text>lesson 2</text>
-        <question>
+        <question Name="Frage 1">
             <text>4!</text>
             <answer isCorrect="true">24</answer>
             <answer isCorrect="false">6</answer>
             <answer isCorrect="false">1243</answer>
         </question>
     </lesson>
-    <lesson>
+    <lesson Name="Lesson 3">
         <text>lesson -1</text>
-        <question>
+        <question Name="bhbhdd">
             <text>bdhiviuer</text>
             <answer isCorrect="false">ew</answer>
             <answer isCorrect="true">-1</answer>

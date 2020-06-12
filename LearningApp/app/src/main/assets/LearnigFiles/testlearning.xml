@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject [<!--    -->
-    <!ELEMENT subject (text, lesson)>
-    <!ELEMENT text  (#PCDATA)><!ELEMENT lesson (text, question*)>
-
-    <!ELEMENT answer (#PCDATA)><!ELEMENT question (text,answer*)>
+    <!ELEMENT subject (text,lesson*)>
+    <!ELEMENT text  (#PCDATA)>
+    <!ELEMENT lesson (text, question*)>
+    <!ELEMENT answer (#PCDATA)>
+    <!ELEMENT question (text,answer*)>
     <!ATTLIST answer
         isCorrect (true|false) #REQUIRED
+
         >
+    <!ATTLIST subject
+        Name   CDATA #REQUIRED>
+    <!ATTLIST lesson
+        Name   CDATA #REQUIRED>
+    <!ATTLIST question
+        Name   CDATA #REQUIRED>
+
     ]>
-<subject>
+<subject Name="Dummes Fach">
     <text>tt</text>
-    <lesson>
+    <lesson Name="lesson 666">
         <text>Bla Bla</text>
-        <question>
+        <question Name="-1 frage">
             <text>
                 5*5=?
             </text>

@@ -111,7 +111,18 @@ class FragmentMenue : Fragment() {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList:MutableList<String> = mutableListOf()
         for(i in 0 until subject.lessons.size){ //(lesson in subject.lessons) {
-            popupMenu.menu.add(1,i,i,subject.lessons[i].text)
+
+
+
+
+
+
+            popupMenu.menu.add(1,i,i,subject.lessons[i].getName())
+
+
+
+
+
              itemList.add(subject.lessons[i].text)
 
         }
