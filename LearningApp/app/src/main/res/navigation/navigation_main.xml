@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.example.learningapp.QuestionFragment"
-        android:label="QuestionFragment" />
+        android:label="QuestionFragment" >
+        <argument
+            android:name="recived_Learning"
+            app:argType="com.example.learningapp.SerilLearningElement" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentMenue"
         android:name="com.example.learningapp.FragmentMenue"
