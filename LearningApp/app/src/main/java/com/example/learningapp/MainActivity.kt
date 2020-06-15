@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+    override fun onBackPressed() {
+        val navController = this.findNavController(R.id.myNavFragment)
+        navController.navigateUp()
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavFragment)
