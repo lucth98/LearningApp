@@ -1,0 +1,17 @@
+<!ELEMENT subject (text,lesson*)>
+    <!ELEMENT text  (#PCDATA)>
+    <!ELEMENT lesson (text, question*)>
+    <!ELEMENT answer (#PCDATA)>
+    <!ELEMENT question (text,answer*)>
+    <!ATTLIST answer
+        isCorrect (true|false) #REQUIRED
+        >
+    <!ATTLIST subject
+        Name   CDATA #REQUIRED>
+    <!ATTLIST lesson
+        Name   CDATA #REQUIRED
+        finished (true|false) #REQUIRED>
+    <!ATTLIST question
+        Name   CDATA #REQUIRED
+        finished (true|false) #REQUIRED
+        >

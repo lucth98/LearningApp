@@ -1,25 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject [<!--    -->
-    <!ELEMENT subject (text,lesson*)>
-    <!ELEMENT text  (#PCDATA)>
-    <!ELEMENT lesson (text, question*)>
-    <!ELEMENT answer (#PCDATA)>
-    <!ELEMENT question (text,answer*)>
-    <!ATTLIST answer
-        isCorrect (true|false) #REQUIRED
-
-        >
-    <!ATTLIST subject
-        Name   CDATA #REQUIRED>
-    <!ATTLIST lesson
-        Name   CDATA #REQUIRED
-        finished (true|false) #REQUIRED>
-    <!ATTLIST question
-        Name   CDATA #REQUIRED
-        finished (true|false) #REQUIRED
-
-        >
-
-    ]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject SYSTEM "subject.dtd">
 <subject Name="Test">
     <text> testfach</text>
     <lesson Name="lesson 1" finished="false">

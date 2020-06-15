@@ -1,26 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject [<!--    -->
-    <!ELEMENT subject (text,lesson*)>
-    <!ELEMENT text  (#PCDATA)>
-    <!ELEMENT lesson (text, question*)>
-    <!ELEMENT answer (#PCDATA)>
-    <!ELEMENT question (text,answer*)>
-    <!ATTLIST answer
-        isCorrect (true|false) #REQUIRED
-
-        >
-    <!ATTLIST subject
-        Name   CDATA #REQUIRED>
-    <!ATTLIST lesson
-        Name   CDATA #REQUIRED>
-    <!ATTLIST question
-        Name   CDATA #REQUIRED>
-
-    ]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject SYSTEM "subject.dtd">
 <subject Name="Dummes Fach">
     <text>tt</text>
-    <lesson Name="lesson 666">
+    <lesson Name="lesson 666" finished="false">
         <text>Bla Bla</text>
-        <question Name="-1 frage">
+        <question Name="-1 frage" finished="false">
             <text>
                 5*5=?
             </text>
