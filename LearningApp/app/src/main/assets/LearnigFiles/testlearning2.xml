@@ -11,16 +11,20 @@
     <!ATTLIST subject
         Name   CDATA #REQUIRED>
     <!ATTLIST lesson
-        Name   CDATA #REQUIRED>
+        Name   CDATA #REQUIRED
+        finished (true|false) #REQUIRED>
     <!ATTLIST question
-        Name   CDATA #REQUIRED>
+        Name   CDATA #REQUIRED
+        finished (true|false) #REQUIRED
+
+        >
 
     ]>
 <subject Name="Test">
     <text> testfach</text>
-    <lesson Name="lesson 1">
+    <lesson Name="lesson 1" finished="false">
         <text>lesson 1 esfewf</text>
-        <question Name="Question 1">
+        <question Name="Question 1" finished="false">
             <text>
                 5*5=?
             </text>
@@ -35,19 +39,19 @@
             </answer>
         </question>
     </lesson>
-    <lesson Name="lesson 2">
+    <lesson Name="lesson 2" finished="false">
         <text>lesson 2  sdfkueggkuzfugzeizl</text>
-        <question Name="Frage 1">
+        <question Name="Frage 1" finished="false">
             <text>4!</text>
             <answer isCorrect="true">24</answer>
             <answer isCorrect="false">6</answer>
             <answer isCorrect="false">1243</answer>
         </question>
     </lesson>
-    <lesson Name="Lesson 3">
+    <lesson Name="Lesson 3" finished="false">
         <text>lesson -1 sfgiuewiluh efwilugilzif iuuggiu f
         </text>
-        <question Name="bhbhdd">
+        <question Name="bhbhdd" finished="false">
             <text>bdhiviuer</text>
             <answer isCorrect="false">ew</answer>
             <answer isCorrect="true">-1</answer>

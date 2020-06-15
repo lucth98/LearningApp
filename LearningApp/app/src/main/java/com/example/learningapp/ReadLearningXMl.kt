@@ -67,10 +67,16 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                             lesson.atributList.add(atribut)
                         }*/
                         var atribut: Atribut = Atribut()
+                        if(parser.getAttributeValue(null,"Name").compareTo("666")==0)
+                        {
+                            parser.setProperty("Name","667")
+                        }
                         atribut.name = "Name"
                         atribut.text = parser.getAttributeValue(null,"Name") //parser.getAttributeValue(i).trim()
 
+
                         lesson.atributList.add(atribut)
+
 
                     }
                     "question" -> {
@@ -248,6 +254,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                     when (tag) {
                         "subject" -> {
+                          //  myparser.setProperty()
                           /*  for (i in 0..myparser.attributeCount - 1 step 1) {
                                 var atribut: Atribut = Atribut()
                                 atribut.name = myparser.getAttributeName(i).trim()

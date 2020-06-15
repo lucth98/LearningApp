@@ -72,7 +72,7 @@ class QuestionFragment : Fragment() {
         Timber.i("onCreate_Beginn")
 
         try {
-            /*   var xmlReader = this.context?.let { ReadLearningXMl(it, "testlearning2.xml") }
+            /*   var xmlReader = this.context?.let { ReadLearningXMl(it, ".xml") }
                var subject: Subject = xmlReader!!.read()*/
 
             /*   xmlReader.testSubject(subject)
@@ -107,9 +107,9 @@ class QuestionFragment : Fragment() {
         binding.textViewResult.visibility = View.VISIBLE
         binding.textViewResult.text = checkAnswer().toString()
         if (checkAnswer()) {
-            binding.lilLayout.setBackgroundColor(Color.rgb(0, 255, 0))
+            binding.lilLayout.setBackgroundColor(Color.rgb(50,205,50))
         } else {
-            binding.lilLayout.setBackgroundColor(Color.rgb(255, 0, 0))
+            binding.lilLayout.setBackgroundColor(Color.rgb(255,99,7))
         }
     }
 
