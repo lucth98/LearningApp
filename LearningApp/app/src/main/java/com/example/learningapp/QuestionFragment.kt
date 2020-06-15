@@ -1,6 +1,8 @@
 package com.example.learningapp
 
 import android.content.Context
+import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,11 +38,7 @@ class QuestionFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
         // binding.RadioGroupQuestions.addView(null)
-
-
     }
 
 
@@ -74,18 +72,17 @@ class QuestionFragment : Fragment() {
         Timber.i("onCreate_Beginn")
 
         try {
-            var xmlReader = this.context?.let { ReadLearningXMl(it, "testlearning2.xml") }
-            var subject: Subject = xmlReader!!.read()
+            /*   var xmlReader = this.context?.let { ReadLearningXMl(it, "testlearning2.xml") }
+               var subject: Subject = xmlReader!!.read()*/
 
-         /*   xmlReader.testSubject(subject)
-            question = subject.lessons[0].questions[0]*/
+            /*   xmlReader.testSubject(subject)
+               question = subject.lessons[0].questions[0]*/
             var element =
                 arguments?.let { QuestionFragmentArgs.fromBundle(it).recivedLearning.learningElement } //arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement}
             if (element is Question) {
                 question = element
 
-            }
-            else{
+            } else {
                 Timber.i("Keine Frage")
             }
 
@@ -107,8 +104,13 @@ class QuestionFragment : Fragment() {
     }
 
     private fun finshButtonAction() {
+        binding.textViewResult.visibility = View.VISIBLE
         binding.textViewResult.text = checkAnswer().toString()
-
+        if (checkAnswer()) {
+            binding.lilLayout.setBackgroundColor(Color.rgb(0, 255, 0))
+        } else {
+            binding.lilLayout.setBackgroundColor(Color.rgb(255, 0, 0))
+        }
     }
 
     private fun checkAnswer(): Boolean {

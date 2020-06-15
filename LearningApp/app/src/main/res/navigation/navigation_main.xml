@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_start" >
         <action
             android:id="@+id/action_startFragment_to_fragmentMenue2"
-            app:destination="@id/fragmentMenue" />
+            app:destination="@id/fragmentMenue"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
@@ -28,7 +29,8 @@
         android:label="FragmentMenue" >
         <action
             android:id="@+id/action_fragmentMenue_to_fragment_info"
-            app:destination="@id/fragment_info" />
+            app:destination="@id/fragment_info"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/fragment_info"
@@ -39,6 +41,7 @@
             app:argType="com.example.learningapp.SerilLearningElement" />
         <action
             android:id="@+id/action_fragment_info_to_questionFragment"
-            app:destination="@id/questionFragment" />
+            app:destination="@id/questionFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>
