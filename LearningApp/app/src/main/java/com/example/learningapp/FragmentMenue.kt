@@ -178,7 +178,10 @@ class FragmentMenue : Fragment() {
         var assetManager: AssetManager = requireContext().getAssets()
 
         for (file in assetManager.list("LearnigFiles")!!) {
+            if(!(file.compareTo("subject.dtd")==0)){
             result.add(file)
+            Timber.i(file)
+            }
             // result.add("\n")
         }
         return result

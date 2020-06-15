@@ -19,7 +19,7 @@ class UpdateLearningXML(var context: Context) {
     private fun generateDoc(path:String): Document {
         var factory=DocumentBuilderFactory.newInstance()
         var builder=factory.newDocumentBuilder()
-        var doc=builder.parse(context.openFileInput(path))
+        var doc=builder.parse(context.getAssets().open(path))//context.openFileInput(path))
 
         return doc
     }
@@ -62,8 +62,6 @@ class UpdateLearningXML(var context: Context) {
                 atributes.item(atributefinishedIndexLesson).nodeValue=setFinish.toString()
 
             }
-
-
         }
         this.transform(doc)
     }
@@ -78,7 +76,7 @@ class UpdateLearningXML(var context: Context) {
                 "MyFileName.xml",
                 Context.MODE_PRIVATE
             )
-        ) // To save it in the Internal Storage
+        )
 
         transformer.transform(dSource, result)
     }

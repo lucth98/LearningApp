@@ -26,4 +26,11 @@ class Subject():LearningElement() {
         return result
     }
 
+
+    public var path: String = ""
+        get() = field
+        set(value) {
+            field = value
+        }
+
 }
