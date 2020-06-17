@@ -2,11 +2,14 @@ package com.example.learningapp
 
 abstract class LearningElement {
 
-    abstract var text:String
 
 
+     var text: String=""
+        get() = field
+        set(value) {
+            field = value
+        }
 
-    abstract  var atributList:MutableList<Atribut>
 
      fun getName():String{
         var result="-1"
@@ -17,5 +20,11 @@ abstract class LearningElement {
         }
         return result
     }
+
+    var atributList: MutableList<Atribut> = mutableListOf()
+        get() =field
+        set(value:MutableList<Atribut>) {
+            field=(value)
+        }
 
 }
