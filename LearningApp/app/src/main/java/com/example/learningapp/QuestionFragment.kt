@@ -23,6 +23,7 @@ import timber.log.Timber
 class QuestionFragment : Fragment() {
     private lateinit var binding: FragmentQuestionBinding
     private lateinit var question: Question
+    private lateinit var path:String
 
 
 
@@ -68,8 +69,8 @@ class QuestionFragment : Fragment() {
 
             /*   xmlReader.testSubject(subject)
                question = subject.lessons[0].questions[0]*/
-            var element =
-                arguments?.let { QuestionFragmentArgs.fromBundle(it).recivedLearning.learningElement } //arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement}
+            var element = arguments?.let { QuestionFragmentArgs.fromBundle(it).recivedLearning.learningElement }
+            path = arguments?.let { QuestionFragmentArgs.fromBundle(it).recivedLearning.path }.toString()
             if (element is Question) {
                 question = element
 
@@ -99,6 +100,10 @@ class QuestionFragment : Fragment() {
         binding.textViewResult.text = checkAnswer().toString()
         if (checkAnswer()) {
             binding.lilLayout.setBackgroundColor(Color.rgb(50,205,50))
+            var updateLearningXML=UpdateLearningXML(this.requireContext())
+            updateLearningXML.changeQuestion(this.path,this.question,true)
+
+
         } else {
             binding.lilLayout.setBackgroundColor(Color.rgb(255,99,7))
         }

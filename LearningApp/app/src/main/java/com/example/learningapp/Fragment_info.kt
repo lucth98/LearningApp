@@ -22,6 +22,8 @@ class Fragment_info : Fragment() {
     private lateinit var binding: FragmentInfoBinding
     private lateinit var lesson: Lesson
 
+    private lateinit var path:String
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +39,9 @@ class Fragment_info : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
         try {
-            var element =
-                arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement }
+            var element = arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement }
 
-
+                path = arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.path }.toString()
             if (element is Lesson) {
                 lesson = element
                 binding.textViewHeading.text = lesson.getName()
@@ -91,6 +92,8 @@ class Fragment_info : Fragment() {
             {
                 if(quest.getName()==itemList[item.itemId]){
                     serilLearningElement.learningElement=quest
+                    serilLearningElement.path=this.path
+
 
 
                 //    var action =FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)

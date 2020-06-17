@@ -15,22 +15,12 @@ import com.example.learningapp.databinding.FragmentMenueBinding
 import timber.log.Timber
 
 
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentMenue.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentMenue : Fragment() {
     // private lateinit var binding: FragmentStartBinding
     private lateinit var binding: FragmentMenueBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
     }
 
     override fun onCreateView(
@@ -39,13 +29,9 @@ class FragmentMenue : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menue, container, false)
         // Inflate the layout for this fragment
-
-        /*  for (name: String in getFilenames()) {binding.textViewTest.text = binding.textViewTest.text.toString() + name}*/
         generateMenue()
 
-
-
-        return binding.root//inflater.inflate(R.layout.fragment_menue, container, false)
+        return binding.root
     }
 
 
@@ -54,23 +40,22 @@ class FragmentMenue : Fragment() {
         var subjectlist: MutableList<Subject> = mutableListOf()
         try {
             for (name in filenameslist) {
+                var path:String="LearnigFiles/" + name.toString()
                 var readLearningXMl: ReadLearningXMl =
-                    ReadLearningXMl(this.requireContext(), "LearnigFiles/" + name.toString())
-                subjectlist.add(readLearningXMl.read())
-            }
-            //   for (subject in subjectlist){
-            for ((index, value) in subjectlist.withIndex()) {
+                    ReadLearningXMl(this.requireContext(), path)
 
+                var subject=readLearningXMl.read()
+                subject.path=path
+                subjectlist.add(subject)
+            }
+
+            for ((index, value) in subjectlist.withIndex()) {
 
                 var button: Button = Button(this.requireContext())
                 button.text = filenameslist[index].toString()
-
-
                 button.setOnClickListener {
                     genPopupMenue(it, subjectlist[index])
-
                 }
-
                 binding.menueLayout.addView(button)
             }
         } catch (e: Exception) {
@@ -81,62 +66,37 @@ class FragmentMenue : Fragment() {
     private fun genPopupMenue(view: View, subject: Subject) {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList: MutableList<String> = mutableListOf()
-        for (i in 0 until subject.lessons.size) { //(lesson in subject.lessons) {
-
-
+        for (i in 0 until subject.lessons.size) {
             popupMenu.menu.add(1, i, i, subject.lessons[i].getName())
-
-
-
-
-
             itemList.add(subject.lessons[i].getName())
-
         }
         popupMenu.setOnMenuItemClickListener {
             onMenuItemClick(it, itemList, subject)
-
         }
-
-
         popupMenu.show()
-
     }
 
 
+
     @Override
-    private fun onMenuItemClick(
-        item: MenuItem,
-        itemList: MutableList<String>,
-        subject: Subject
-    ): Boolean {
+    private fun onMenuItemClick(item: MenuItem,itemList: MutableList<String>,subject: Subject): Boolean {
 
         if (item.itemId < itemList.size) {
-
             binding.textViewTest.text = itemList[item.itemId]
-
             var serilLearningElement = SerilLearningElement()
-
-
-
 
             for (less in subject.lessons) {
                 if (less.getName() == itemList[item.itemId]) {
                     serilLearningElement.learningElement = less
+                    serilLearningElement.path=subject.path
 
 
                     var action = FragmentMenueDirections.actionFragmentMenueToFragmentInfo(
                         serilLearningElement
                     )
-
                     findNavController().navigate(action)
                 }
             }
-
-
-            // findNavController().navigate(R.id.action_fragmentMenue_to_fragment_info,serilLearningElement)
-
-
             return true
         }
         return false
@@ -152,7 +112,6 @@ class FragmentMenue : Fragment() {
                 result.add(file)
                 Timber.i(file)
             }
-            // result.add("\n")
         }
         return result
     }
