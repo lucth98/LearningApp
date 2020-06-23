@@ -1,13 +1,9 @@
 package com.example.learningapp
 
 import android.content.Context
-import android.os.FileUtils
-import kotlinx.coroutines.channels.consumesAll
 import org.w3c.dom.Document
 import timber.log.Timber
 import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
 import javax.xml.transform.Transformer
@@ -23,14 +19,14 @@ class UpdateLearningXML(var context: Context) {
     private val questiontag = "question"
     private val lessonntag = "lesson"
 
-    private fun generateDoc(path: String): Document {
+    private fun generateDoc_Assets(path: String): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
         Timber.i("path= " + path)
 
 
         var doc = builder.parse(context.assets.open(path))//.parse(context.openFileInput(path))//getAssets().open(path))//context.openFileInput(path))
-       // doc.documentURI = path
+        // doc.documentURI = path
         if (doc != null) {
             Timber.i("doc uri= " + doc.documentURI)
             Timber.i("xml= " + doc.xmlEncoding)
@@ -39,15 +35,32 @@ class UpdateLearningXML(var context: Context) {
         }
         return doc
     }
-    public fun saveInInternalStorage(path: String,name:String){
-        var doc = this.generateDoc(path)
-        this.transform(doc,name)
+
+    private fun generateDoc_InternalStorage(path: String): Document {
+        var factory = DocumentBuilderFactory.newInstance()
+        var builder = factory.newDocumentBuilder()
+        Timber.i("path= " + path)
+
+        var doc = builder.parse(context.openFileInput(path))
+        // doc.documentURI = path
+        if (doc != null) {
+            Timber.i("doc uri= " + doc.documentURI)
+            Timber.i("xml= " + doc.xmlEncoding)
+        } else {
+            Timber.i("Error")
+        }
+        return doc
+    }
+
+    public fun saveInInternalStorage(path: String, name: String) {
+        var doc = this.generateDoc_Assets(path)
+        this.transform(doc, name)
     }
 
     public fun changeQuestion(path: String, question: Question, setFinish: Boolean) {
 
         Timber.i("changeQuestion")
-        var doc = this.generateDoc(path)
+        var doc = this.generateDoc_Assets(path)
 
         var nodeList = doc.getElementsByTagName(questiontag)
 
@@ -62,12 +75,12 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Wert = " + atributes.item(atributefinishedIndexQuestion).nodeValue)
             }
         }
-        this.transform(doc,"new2")
+        this.transform(doc, "new2")
 
     }
 
     public fun changeLesson(path: String, question: Question, setFinish: Boolean) {
-        var doc = this.generateDoc(path)
+        var doc = this.generateDoc_Assets(path)
 
         var nodeList = doc.getElementsByTagName(lessonntag)
 
@@ -81,27 +94,27 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
             }
         }
-        this.transform(doc,"new")
+        this.transform(doc, "new")
     }
 
 
-    private fun transform(doc: Document,name:String) {
+    private fun transform(doc: Document, name: String) {
         try {
+
             val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
             val transformer: Transformer = transformerFactory.newTransformer()
             val dSource = DOMSource(doc)
 
-           Timber.i("file output path= " +context.filesDir.absolutePath)
-
+            Timber.i("file output path= " + context.filesDir.absolutePath)
 
 
             val result = StreamResult(context.openFileOutput(name, Context.MODE_PRIVATE))
-            Timber.i("name= "+name)
-            if(doc.doctype!= null){
-               var systemvalue =(File(doc.doctype.systemId)).name
-                transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,systemvalue)
-                Timber.i("system values"+systemvalue)
-            }else{
+            Timber.i("name= " + name)
+            if (doc.doctype != null) {
+                var systemvalue = (File(doc.doctype.systemId)).name
+                transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, systemvalue)
+                Timber.i("system values" + systemvalue)
+            } else {
                 Timber.i("Error Doctype =null")
             }
             transformer.transform(dSource, result)
@@ -110,14 +123,12 @@ class UpdateLearningXML(var context: Context) {
         } catch (e: Exception) {
             Timber.i(e)
         }
-
     }
-    private fun tetst()
-    {
-       for( strin in context.fileList())
-       {
-           Timber.i("Test Filename ="+strin)
-       }
+
+    private fun tetst() {
+        for (strin in context.fileList()) {
+            Timber.i("Test Filename =" + strin)
+        }
     }
 
 

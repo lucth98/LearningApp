@@ -36,9 +36,9 @@ class SaveFiles(var context: Context) {
     public fun getFilnamesInternalStorage() = context.fileList()
 
     public fun deleteFilesinInternalStorage(){
-        for(fileuri in this.getFilnamesInternalStorage())
+        for(file in context.getFilesDir().listFiles())
         {
-           var file=File(fileuri)
+
             file.delete()
         }
     }
