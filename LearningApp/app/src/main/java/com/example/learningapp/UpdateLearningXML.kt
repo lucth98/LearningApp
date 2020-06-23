@@ -60,7 +60,7 @@ class UpdateLearningXML(var context: Context) {
     public fun changeQuestion(path: String, question: Question, setFinish: Boolean) {
 
         Timber.i("changeQuestion")
-        var doc = this.generateDoc_Assets(path)
+        var doc = this.generateDoc_InternalStorage(path)
 
         var nodeList = doc.getElementsByTagName(questiontag)
 
@@ -75,12 +75,12 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Wert = " + atributes.item(atributefinishedIndexQuestion).nodeValue)
             }
         }
-        this.transform(doc, "new2")
+        this.transform(doc, path)
 
     }
 
     public fun changeLesson(path: String, question: Question, setFinish: Boolean) {
-        var doc = this.generateDoc_Assets(path)
+        var doc = this.generateDoc_InternalStorage(path)
 
         var nodeList = doc.getElementsByTagName(lessonntag)
 
@@ -94,7 +94,7 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
             }
         }
-        this.transform(doc, "new")
+        this.transform(doc, path)
     }
 
 
@@ -107,7 +107,6 @@ class UpdateLearningXML(var context: Context) {
 
             Timber.i("file output path= " + context.filesDir.absolutePath)
 
-
             val result = StreamResult(context.openFileOutput(name, Context.MODE_PRIVATE))
             Timber.i("name= " + name)
             if (doc.doctype != null) {
@@ -118,8 +117,7 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Error Doctype =null")
             }
             transformer.transform(dSource, result)
-
-            tetst()
+            
         } catch (e: Exception) {
             Timber.i(e)
         }
