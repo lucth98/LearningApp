@@ -10,7 +10,6 @@ import androidx.navigation.Navigation
 import com.example.learningapp.databinding.FragmentStartBinding
 
 
-
 /**
  * A simple [Fragment] subclass.
  * Use the [StartFragment.newInstance] factory method to
@@ -21,23 +20,18 @@ class StartFragment : Fragment() {
     private lateinit var binding: FragmentStartBinding
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_start,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
 
-        binding.StartButton.setOnClickListener (Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_fragmentMenue2))
+        binding.StartButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_fragmentMenue2))
+        binding.OptionButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_optionsFragment))
 
         return binding.root//inflater.inflate(R.layout.fragment_start, container, false)
     }
