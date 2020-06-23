@@ -35,6 +35,7 @@ class FragmentMenue : Fragment() {
     private fun generateMenue() {
 
         var saveFiles = SaveFiles(this.requireContext())
+        saveFiles.deleteFilesinInternalStorage()
         saveFiles.moveXMLtoInternalStorage()
 
 

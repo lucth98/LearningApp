@@ -39,9 +39,9 @@ class UpdateLearningXML(var context: Context) {
         }
         return doc
     }
-    public fun saveInInternalStorage(path: String){
+    public fun saveInInternalStorage(path: String,name:String){
         var doc = this.generateDoc(path)
-        this.transform(doc)
+        this.transform(doc,name)
     }
 
     public fun changeQuestion(path: String, question: Question, setFinish: Boolean) {
@@ -62,7 +62,7 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Wert = " + atributes.item(atributefinishedIndexQuestion).nodeValue)
             }
         }
-        this.transform(doc)
+        this.transform(doc,"new2")
 
     }
 
@@ -81,11 +81,11 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
             }
         }
-        this.transform(doc)
+        this.transform(doc,"new")
     }
 
 
-    private fun transform(doc: Document) {
+    private fun transform(doc: Document,name:String) {
         try {
             val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
             val transformer: Transformer = transformerFactory.newTransformer()
@@ -95,8 +95,8 @@ class UpdateLearningXML(var context: Context) {
 
 
 
-            val result = StreamResult(context.openFileOutput("new.xml", Context.MODE_PRIVATE))
-
+            val result = StreamResult(context.openFileOutput(name, Context.MODE_PRIVATE))
+            Timber.i("name= "+name)
             if(doc.doctype!= null){
                var systemvalue =(File(doc.doctype.systemId)).name
                 transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,systemvalue)

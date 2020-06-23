@@ -23,7 +23,7 @@ class Fragment_info : Fragment() {
     private lateinit var lesson: Lesson
 
     private lateinit var path:String
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import androidx.core.content.ContentProviderCompat.requireContext
 import timber.log.Timber
+import java.io.File
 import java.lang.Exception
 
 class SaveFiles(var context: Context) {
@@ -25,7 +26,7 @@ class SaveFiles(var context: Context) {
         try {
             for (filename in this.getFilenames()) {
                 var updateLearningXML = UpdateLearningXML(context)
-                updateLearningXML.saveInInternalStorage(filename)
+                updateLearningXML.saveInInternalStorage("LearnigFiles/" + filename,filename)
             }
         }catch(e:Exception){
             Timber.i(e)
@@ -33,5 +34,13 @@ class SaveFiles(var context: Context) {
     }
 
     public fun getFilnamesInternalStorage() = context.fileList()
+
+    public fun deleteFilesinInternalStorage(){
+        for(fileuri in this.getFilnamesInternalStorage())
+        {
+           var file=File(fileuri)
+            file.delete()
+        }
+    }
 
 }
