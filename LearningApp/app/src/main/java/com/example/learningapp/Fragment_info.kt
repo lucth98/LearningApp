@@ -42,6 +42,7 @@ class Fragment_info : Fragment() {
                 binding.textViewInfo.text = lesson.text
             }
             generateMenue()
+            this.changestatus()
         } catch (e: Exception) {
             Timber.i(e)
         }
@@ -77,6 +78,24 @@ class Fragment_info : Fragment() {
         }
 
         popupMenu.show()
+    }
+
+    private fun changestatus(){
+        if(this.checkiffinshed()){
+            var updateLearningXML:UpdateLearningXML= UpdateLearningXML(this.requireContext())
+            updateLearningXML.changeLearnigElement(path,this.lesson,true,"lesson")
+        }
+    }
+
+
+
+    private fun checkiffinshed():Boolean{
+        for (question in this.lesson.questions){
+            if(!question.getfinished()){
+                return false
+            }
+        }
+        return true
     }
 
     @Override

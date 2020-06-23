@@ -67,7 +67,12 @@ class FragmentMenue : Fragment() {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList: MutableList<String> = mutableListOf()
         for (i in 0 until subject.lessons.size) {
-            popupMenu.menu.add(1, i, i, subject.lessons[i].getName())
+            var menuinput:String=subject.lessons[i].getName()
+            if(subject.lessons[i].getfinished())
+            {
+                menuinput+=" Wiederholung"
+            }
+            popupMenu.menu.add(1, i, i, menuinput)
             itemList.add(subject.lessons[i].getName())
         }
         popupMenu.setOnMenuItemClickListener {
@@ -75,6 +80,8 @@ class FragmentMenue : Fragment() {
         }
         popupMenu.show()
     }
+
+
 
 
     @Override

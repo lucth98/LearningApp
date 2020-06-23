@@ -97,6 +97,26 @@ class UpdateLearningXML(var context: Context) {
         this.transform(doc, path)
     }
 
+    public fun changeLearnigElement(path: String, LearningElement: LearningElement, setFinish: Boolean,tag:String) {
+        var doc = this.generateDoc_InternalStorage(path)
+
+        var nodeList = doc.getElementsByTagName(tag)
+
+        for (i in 0 until nodeList.length step 1) {
+            var node = nodeList.item(i)
+            var atributes = node.attributes
+
+            if (atributes.item(atributeNameIndexLesson).nodeValue.compareTo(LearningElement.getName()) == 0) {
+                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
+                atributes.item(atributefinishedIndexLesson).nodeValue = setFinish.toString()
+                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
+            }
+        }
+        this.transform(doc, path)
+    }
+
+
+
 
     private fun transform(doc: Document, name: String) {
         try {
