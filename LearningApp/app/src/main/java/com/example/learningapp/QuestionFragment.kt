@@ -54,18 +54,15 @@ class QuestionFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question, container, false)
         Timber.i("onCreate_Beginn")
 
         try {
 
             var element = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement }
-            path = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement.path}.toString()
+            path = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement.path }.toString()
+           // Timber.i("path ="+path)
             if (element is Question) {
                 question = element
 

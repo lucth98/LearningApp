@@ -22,24 +22,20 @@ class Fragment_info : Fragment() {
     private lateinit var binding: FragmentInfoBinding
     private lateinit var lesson: Lesson
 
-    private lateinit var path:String
+    private lateinit var path: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
         try {
             var element = arguments?.let { Fragment_infoArgs.fromBundle(it).lernElement }
 
-                path = arguments?.let { Fragment_infoArgs.fromBundle(it).lernElement.path}.toString()
+            path = arguments?.let { Fragment_infoArgs.fromBundle(it).lernElement.path }.toString()
             if (element is Lesson) {
                 lesson = element
                 binding.textViewHeading.text = lesson.getName()
@@ -64,9 +60,14 @@ class Fragment_info : Fragment() {
     private fun genPopupMenue(view: View) {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList: MutableList<String> = mutableListOf()
-        for (i in 0 until lesson.questions.size) { //(lesson in subject.lessons) {
+        for (i in 0 until lesson.questions.size) {
 
-            popupMenu.menu.add(1, i, i, lesson.questions[i].getName())
+            var menueString:String=lesson.questions[i].getName()
+            if(lesson.questions[i].getfinished())
+            {
+                menueString+=" Wiederholung"
+            }
+            popupMenu.menu.add(1, i, i, menueString)
 
             itemList.add(lesson.questions[i].getName())
 
@@ -79,19 +80,17 @@ class Fragment_info : Fragment() {
     }
 
     @Override
-    private fun onMenuItemClick(item: MenuItem, itemList:MutableList<String>):Boolean
-    {
+    private fun onMenuItemClick(item: MenuItem, itemList: MutableList<String>): Boolean {
 
-        if(item.itemId<itemList.size){
+        if (item.itemId < itemList.size) {
 
 
-            for( quest in lesson.questions)
-            {
-                if(quest.getName()==itemList[item.itemId]){
+            for (quest in lesson.questions) {
+                if (quest.getName() == itemList[item.itemId]) {
 
-                    quest.path=this.path
+                    quest.path = this.path
 
-                var action=Fragment_infoDirections.actionFragmentInfoToQuestionFragment(quest)
+                    var action = Fragment_infoDirections.actionFragmentInfoToQuestionFragment(quest)
                     findNavController().navigate(action)
                 }
             }
@@ -101,14 +100,6 @@ class Fragment_info : Fragment() {
         return false
 
     }
-
-
-
-
-
-
-
-
 
 
 }

@@ -22,17 +22,17 @@ class UpdateLearningXML(var context: Context) {
     private fun generateDoc_Assets(path: String): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
-        Timber.i("path= " + path)
+     //   Timber.i("path= " + path)
 
 
         var doc = builder.parse(context.assets.open(path))//.parse(context.openFileInput(path))//getAssets().open(path))//context.openFileInput(path))
         // doc.documentURI = path
-        if (doc != null) {
+        /*if (doc != null) {
             Timber.i("doc uri= " + doc.documentURI)
             Timber.i("xml= " + doc.xmlEncoding)
         } else {
             Timber.i("Error")
-        }
+        }*/
         return doc
     }
 
@@ -117,7 +117,7 @@ class UpdateLearningXML(var context: Context) {
                 Timber.i("Error Doctype =null")
             }
             transformer.transform(dSource, result)
-            
+
         } catch (e: Exception) {
             Timber.i(e)
         }

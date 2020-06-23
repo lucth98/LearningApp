@@ -24,13 +24,29 @@ class SaveFiles(var context: Context) {
 
     public fun moveXMLtoInternalStorage(){
         try {
+            var updateLearningXML = UpdateLearningXML(context)
             for (filename in this.getFilenames()) {
-                var updateLearningXML = UpdateLearningXML(context)
-                updateLearningXML.saveInInternalStorage("LearnigFiles/" + filename,filename)
+                if(!this.checkifFileexist(filename)) {
+                    updateLearningXML.saveInInternalStorage("LearnigFiles/" + filename, filename)
+                    Timber.i("file "+filename+"existiert nicht")
+                }else
+                {
+                    Timber.i("file "+filename+"existiert ")
+                }
             }
         }catch(e:Exception){
             Timber.i(e)
         }
+    }
+    private fun checkifFileexist(filname:String):Boolean{
+        for(filenameInternal in this.getFilnamesInternalStorage()){
+            if (filname.compareTo(filenameInternal.toString())==0)
+            {
+                return true
+            }
+        }
+        return false
+
     }
 
     public fun getFilnamesInternalStorage() = context.fileList()

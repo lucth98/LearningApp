@@ -86,6 +86,8 @@ class FragmentMenue : Fragment() {
 
             for (less in subject.lessons) {
                 if (less.getName() == itemList[item.itemId]) {
+                    less.path=subject.path
+                    //Timber.i("path= "+less.path)
 
                     var action = FragmentMenueDirections.actionFragmentMenueToFragmentInfo(less)//FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
                     findNavController().navigate(action)

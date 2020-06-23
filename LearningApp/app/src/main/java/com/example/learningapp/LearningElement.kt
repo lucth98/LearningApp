@@ -1,5 +1,6 @@
 package com.example.learningapp
 
+import timber.log.Timber
 import java.io.Serializable
 
 abstract class LearningElement:Serializable {
@@ -19,6 +20,9 @@ abstract class LearningElement:Serializable {
         for (atr in atributList){
             if(atr.name.compareTo("finished")==0){
                 result=atr.text.toBoolean()
+
+
+                Timber.i("fished= "+atr.text)
             }
         }
         return result
