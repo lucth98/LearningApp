@@ -1,84 +1,123 @@
 package com.example.learningapp
 
 import android.content.Context
+import android.os.FileUtils
+import kotlinx.coroutines.channels.consumesAll
 import org.w3c.dom.Document
+import timber.log.Timber
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.OutputKeys
 import javax.xml.transform.Transformer
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
 class UpdateLearningXML(var context: Context) {
-     private  val atributeNameIndexQuestion:Int=0
-    private  val atributefinishedIndexQuestion:Int=0
-    private  val atributeNameIndexLesson:Int=0
-    private  val atributefinishedIndexLesson:Int=0
-    private val questiontag="question"
-    private val lessonntag="lesson"
+    private val atributeNameIndexQuestion: Int = 0
+    private val atributefinishedIndexQuestion: Int = 1
+    private val atributeNameIndexLesson: Int = 0
+    private val atributefinishedIndexLesson: Int = 1
+    private val questiontag = "question"
+    private val lessonntag = "lesson"
 
-    private fun generateDoc(path:String): Document {
-        var factory=DocumentBuilderFactory.newInstance()
-        var builder=factory.newDocumentBuilder()
-        var doc=builder.parse(context.getAssets().open(path))//context.openFileInput(path))
+    private fun generateDoc(path: String): Document {
+        var factory = DocumentBuilderFactory.newInstance()
+        var builder = factory.newDocumentBuilder()
+        Timber.i("path= " + path)
 
+
+        var doc = builder.parse(context.assets.open(path))//.parse(context.openFileInput(path))//getAssets().open(path))//context.openFileInput(path))
+       // doc.documentURI = path
+        if (doc != null) {
+            Timber.i("doc uri= " + doc.documentURI)
+            Timber.i("xml= " + doc.xmlEncoding)
+        } else {
+            Timber.i("Error")
+        }
         return doc
     }
-
-    public fun changeQuestion(path:String, question: Question,setFinish:Boolean) {
-
-        var doc=this.generateDoc(path)
-
-        var nodeList=doc.getElementsByTagName(questiontag)
-
-        for (i in  0 until nodeList.length step 1 ){
-            var node =nodeList.item(i)
-            var atributes =node.attributes
-
-
-            if( atributes.item(atributeNameIndexQuestion).nodeValue.compareTo(question.getName())==0){
-
-                atributes.item(atributefinishedIndexQuestion).nodeValue=setFinish.toString()
-
-            }
-
-
+    public fun saveInInternalStorage(path: String){
+        var doc = this.generateDoc(path)
+        this.transform(doc)
     }
+
+    public fun changeQuestion(path: String, question: Question, setFinish: Boolean) {
+
+        Timber.i("changeQuestion")
+        var doc = this.generateDoc(path)
+
+        var nodeList = doc.getElementsByTagName(questiontag)
+
+        for (i in 0 until nodeList.length step 1) {
+            var node = nodeList.item(i)
+            var atributes = node.attributes
+
+            if (atributes.item(atributeNameIndexQuestion).nodeValue.compareTo(question.getName()) == 0) {
+
+                Timber.i("Wert = " + atributes.item(atributefinishedIndexQuestion).nodeValue)
+                atributes.item(atributefinishedIndexQuestion).nodeValue = setFinish.toString()
+                Timber.i("Wert = " + atributes.item(atributefinishedIndexQuestion).nodeValue)
+            }
+        }
         this.transform(doc)
 
     }
 
-    public fun changeLesson(path:String, question: Question,setFinish:Boolean){
-        var doc=this.generateDoc(path)
+    public fun changeLesson(path: String, question: Question, setFinish: Boolean) {
+        var doc = this.generateDoc(path)
 
-        var nodeList=doc.getElementsByTagName(lessonntag)
+        var nodeList = doc.getElementsByTagName(lessonntag)
 
-        for (i in  0 until nodeList.length step 1 ){
-            var node =nodeList.item(i)
-            var atributes =node.attributes
+        for (i in 0 until nodeList.length step 1) {
+            var node = nodeList.item(i)
+            var atributes = node.attributes
 
-
-            if( atributes.item(atributeNameIndexLesson).nodeValue.compareTo(question.getName())==0){
-
-                atributes.item(atributefinishedIndexLesson).nodeValue=setFinish.toString()
-
+            if (atributes.item(atributeNameIndexLesson).nodeValue.compareTo(question.getName()) == 0) {
+                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
+                atributes.item(atributefinishedIndexLesson).nodeValue = setFinish.toString()
+                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
             }
         }
         this.transform(doc)
     }
 
 
-    private fun transform(doc:Document) {
-        val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
-        val transformer: Transformer = transformerFactory.newTransformer()
-        val dSource = DOMSource(doc)
-        val result = StreamResult(
-            context.openFileOutput(
-                "MyFileName.xml",
-                Context.MODE_PRIVATE
-            )
-        )
+    private fun transform(doc: Document) {
+        try {
+            val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
+            val transformer: Transformer = transformerFactory.newTransformer()
+            val dSource = DOMSource(doc)
 
-        transformer.transform(dSource, result)
+           Timber.i("file output path= " +context.filesDir.absolutePath)
+
+
+
+            val result = StreamResult(context.openFileOutput("new.xml", Context.MODE_PRIVATE))
+
+            if(doc.doctype!= null){
+               var systemvalue =(File(doc.doctype.systemId)).name
+                transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,systemvalue)
+                Timber.i("system values"+systemvalue)
+            }else{
+                Timber.i("Error Doctype =null")
+            }
+            transformer.transform(dSource, result)
+
+            tetst()
+        } catch (e: Exception) {
+            Timber.i(e)
+        }
+
+    }
+    private fun tetst()
+    {
+       for( strin in context.fileList())
+       {
+           Timber.i("Test Filename ="+strin)
+       }
     }
 
 

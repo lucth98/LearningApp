@@ -1,6 +1,8 @@
 package com.example.learningapp
 
-abstract class LearningElement {
+import java.io.Serializable
+
+abstract class LearningElement:Serializable {
 
 
 
@@ -11,7 +13,18 @@ abstract class LearningElement {
         }
 
 
-     fun getName():String{
+
+     fun getfinished():Boolean{
+        var result=false
+        for (atr in atributList){
+            if(atr.name.compareTo("finished")==0){
+                result=atr.text.toBoolean()
+            }
+        }
+        return result
+    }
+
+    fun getName():String{
         var result="-1"
         for (atr in atributList){
             if(atr.name.compareTo("Name")==0){
@@ -25,6 +38,13 @@ abstract class LearningElement {
         get() =field
         set(value:MutableList<Atribut>) {
             field=(value)
+        }
+
+
+    var path: String = ""
+        get() = field
+        set(value) {
+            field = value
         }
 
 }

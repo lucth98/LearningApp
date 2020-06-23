@@ -23,14 +23,13 @@ import timber.log.Timber
 class QuestionFragment : Fragment() {
     private lateinit var binding: FragmentQuestionBinding
     private lateinit var question: Question
-    private lateinit var path:String
-
+    private lateinit var path: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // binding.RadioGroupQuestions.addView(null)
+
     }
 
 
@@ -64,13 +63,9 @@ class QuestionFragment : Fragment() {
         Timber.i("onCreate_Beginn")
 
         try {
-            /*   var xmlReader = this.context?.let { ReadLearningXMl(it, ".xml") }
-               var subject: Subject = xmlReader!!.read()*/
 
-            /*   xmlReader.testSubject(subject)
-               question = subject.lessons[0].questions[0]*/
-            var element = arguments?.let { QuestionFragmentArgs.fromBundle(it).recivedLearning.learningElement }
-            path = arguments?.let { QuestionFragmentArgs.fromBundle(it).recivedLearning.path }.toString()
+            var element = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement }
+            path = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement.path}.toString()
             if (element is Question) {
                 question = element
 
@@ -92,20 +87,38 @@ class QuestionFragment : Fragment() {
         }
         Timber.i("onCreate_Ende")
         // Inflate the layout for this fragment
-        return binding.root //inflater.inflate(R.layout.fragment_question, container, false)
+        return binding.root
     }
 
     private fun finshButtonAction() {
-        binding.textViewResult.visibility = View.VISIBLE
-        binding.textViewResult.text = checkAnswer().toString()
-        if (checkAnswer()) {
-            binding.lilLayout.setBackgroundColor(Color.rgb(50,205,50))
-            var updateLearningXML=UpdateLearningXML(this.requireContext())
-            updateLearningXML.changeQuestion(this.path,this.question,true)
+        try {
 
 
-        } else {
-            binding.lilLayout.setBackgroundColor(Color.rgb(255,99,7))
+            binding.RadioGroupQuestions.visibility = View.GONE
+            binding.textViewResult.visibility = View.VISIBLE
+            binding.textViewResult.text = checkAnswer().toString()
+            if (checkAnswer()) {
+                binding.lilLayout.setBackgroundColor(Color.rgb(50, 205, 50))
+                var updateLearningXML = UpdateLearningXML(this.requireContext())
+                updateLearningXML.changeQuestion(this.path, this.question, true)
+
+
+            } else {
+                binding.lilLayout.setBackgroundColor(Color.rgb(255, 99, 7))
+            }
+            if (question.getfinished()) {
+
+
+                binding.textViewResult.setBackgroundColor(Color.rgb(0, 0, 255))
+            } else {
+
+
+                binding.textViewResult.setBackgroundColor(Color.rgb(255, 165, 0))
+
+            }
+
+        } catch (e: Exception) {
+            Timber.i(e)
         }
     }
 

@@ -15,7 +15,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
     private fun genStream(): InputStream {
 
-        var input: InputStream = context.getAssets().open(path)
+        var input: InputStream = context.openFileInput(path) //context.getAssets().open(path)
         return input
     }
 
@@ -141,7 +141,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                         atribut.name = "finished"
                         atribut.text = parser.getAttributeValue(null,"finished") //parser.getAttributeValue(i).trim()
-
+                        Timber.i("finished"+parser.getAttributeValue(null,"finished"))
                         question.atributList.add(atribut)
                     }
 
@@ -208,19 +208,12 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                         answer.atributList.add(atribut)
                     }
-
-
                 }
-
-
-
             }
 
             if (event == XmlPullParser.TEXT) {
-
                 answer.text = parser.text.trim()
                 Timber.i("lesson text=" + parser.text + " tag=" + tag)
-
             }
 
             if (event == XmlPullParser.END_TAG) {
@@ -228,9 +221,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                 if (tag == "answer") {
                     break
                 }
-
             }
-
             event = parser.next()
         }
         return answer
@@ -247,7 +238,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
         myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         myparser.setInput(this.genStream(), null)
         var event = myparser.eventType
-        var text: String = ""
+      //  var text: String = ""
 
 
         while (event != XmlPullParser.END_DOCUMENT) {
@@ -284,9 +275,9 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                     }
                 }
 
-                XmlPullParser.TEXT -> {
+              /*  XmlPullParser.TEXT -> {
                     text = myparser.text
-                }
+                }*/
 
                 XmlPullParser.END_TAG -> {
 

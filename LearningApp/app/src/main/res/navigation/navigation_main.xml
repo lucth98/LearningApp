@@ -19,12 +19,12 @@
         android:id="@+id/questionFragment"
         android:name="com.example.learningapp.QuestionFragment"
         android:label="QuestionFragment" >
-        <argument
-            android:name="recived_Learning"
-            app:argType="com.example.learningapp.SerilLearningElement" />
         <action
             android:id="@+id/action_questionFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <argument
+            android:name="lernElement"
+            app:argType="com.example.learningapp.LearningElement" />
     </fragment>
     <fragment
         android:id="@+id/fragmentMenue"
@@ -39,12 +39,12 @@
         android:id="@+id/fragment_info"
         android:name="com.example.learningapp.Fragment_info"
         android:label="Fragment_info" >
-        <argument
-            android:name="resived_learnigElement"
-            app:argType="com.example.learningapp.SerilLearningElement" />
         <action
             android:id="@+id/action_fragment_info_to_questionFragment"
             app:destination="@id/questionFragment"
             app:popUpToInclusive="false" />
+        <argument
+            android:name="lernElement"
+            app:argType="com.example.learningapp.LearningElement" />
     </fragment>
 </navigation>

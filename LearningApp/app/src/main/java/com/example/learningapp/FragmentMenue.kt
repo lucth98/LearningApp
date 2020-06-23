@@ -23,10 +23,7 @@ class FragmentMenue : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menue, container, false)
         // Inflate the layout for this fragment
         generateMenue()
@@ -36,16 +33,20 @@ class FragmentMenue : Fragment() {
 
 
     private fun generateMenue() {
-        var filenameslist = getFilenames()
+
+        var saveFiles = SaveFiles(this.requireContext())
+        saveFiles.moveXMLtoInternalStorage()
+
+
+        var filenameslist = saveFiles.getFilnamesInternalStorage()
         var subjectlist: MutableList<Subject> = mutableListOf()
         try {
             for (name in filenameslist) {
-                var path:String="LearnigFiles/" + name.toString()
-                var readLearningXMl: ReadLearningXMl =
-                    ReadLearningXMl(this.requireContext(), path)
+                var path: String = name.toString()// "LearnigFiles/" + name.toString()
+                var readLearningXMl: ReadLearningXMl = ReadLearningXMl(this.requireContext(), path)
 
-                var subject=readLearningXMl.read()
-                subject.path=path
+                var subject = readLearningXMl.read()
+                subject.path = path
                 subjectlist.add(subject)
             }
 
@@ -53,9 +54,7 @@ class FragmentMenue : Fragment() {
 
                 var button: Button = Button(this.requireContext())
                 button.text = filenameslist[index].toString()
-                button.setOnClickListener {
-                    genPopupMenue(it, subjectlist[index])
-                }
+                button.setOnClickListener { genPopupMenue(it, subjectlist[index]) }
                 binding.menueLayout.addView(button)
             }
         } catch (e: Exception) {
@@ -77,43 +76,23 @@ class FragmentMenue : Fragment() {
     }
 
 
-
     @Override
-    private fun onMenuItemClick(item: MenuItem,itemList: MutableList<String>,subject: Subject): Boolean {
+    private fun onMenuItemClick(item: MenuItem, itemList: MutableList<String>, subject: Subject): Boolean {
 
         if (item.itemId < itemList.size) {
             binding.textViewTest.text = itemList[item.itemId]
-            var serilLearningElement = SerilLearningElement()
+
 
             for (less in subject.lessons) {
                 if (less.getName() == itemList[item.itemId]) {
-                    serilLearningElement.learningElement = less
-                    serilLearningElement.path=subject.path
 
-
-                    var action = FragmentMenueDirections.actionFragmentMenueToFragmentInfo(
-                        serilLearningElement
-                    )
+                    var action = FragmentMenueDirections.actionFragmentMenueToFragmentInfo(less)//FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
                     findNavController().navigate(action)
                 }
             }
             return true
         }
         return false
-
-    }
-
-    private fun getFilenames(): MutableList<String> {
-        var result: MutableList<String> = mutableListOf()
-        var assetManager: AssetManager = requireContext().getAssets()
-
-        for (file in assetManager.list("LearnigFiles")!!) {
-            if (!(file.compareTo("subject.dtd") == 0)) {
-                result.add(file)
-                Timber.i(file)
-            }
-        }
-        return result
     }
 
 

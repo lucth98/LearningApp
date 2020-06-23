@@ -23,9 +23,7 @@ class Fragment_info : Fragment() {
     private lateinit var lesson: Lesson
 
     private lateinit var path:String
-
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,9 +37,9 @@ class Fragment_info : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
         try {
-            var element = arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.learningElement }
+            var element = arguments?.let { Fragment_infoArgs.fromBundle(it).lernElement }
 
-                path = arguments?.let { Fragment_infoArgs.fromBundle(it).resivedLearnigElement.path }.toString()
+                path = arguments?.let { Fragment_infoArgs.fromBundle(it).lernElement.path}.toString()
             if (element is Lesson) {
                 lesson = element
                 binding.textViewHeading.text = lesson.getName()
@@ -52,7 +50,7 @@ class Fragment_info : Fragment() {
             Timber.i(e)
         }
 
-        return binding.root//inflater.inflate(R.layout.fragment_info, container, false)
+        return binding.root
     }
 
 
@@ -67,7 +65,6 @@ class Fragment_info : Fragment() {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList: MutableList<String> = mutableListOf()
         for (i in 0 until lesson.questions.size) { //(lesson in subject.lessons) {
-
 
             popupMenu.menu.add(1, i, i, lesson.questions[i].getName())
 
@@ -86,19 +83,15 @@ class Fragment_info : Fragment() {
     {
 
         if(item.itemId<itemList.size){
-            var serilLearningElement=SerilLearningElement()
+
 
             for( quest in lesson.questions)
             {
                 if(quest.getName()==itemList[item.itemId]){
-                    serilLearningElement.learningElement=quest
-                    serilLearningElement.path=this.path
 
+                    quest.path=this.path
 
-
-                //    var action =FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
-                var action=Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)//Fragment_infoDirections.actionFragmentInfoToQuestionFragment(serilLearningElement)
-
+                var action=Fragment_infoDirections.actionFragmentInfoToQuestionFragment(quest)
                     findNavController().navigate(action)
                 }
             }

@@ -6,13 +6,4 @@ class Subject():LearningElement() {
         set(value) {
             field = value
         }
-
-
-
-    public var path: String = ""
-        get() = field
-        set(value) {
-            field = value
-        }
-
 }
