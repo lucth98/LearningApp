@@ -1,20 +1,22 @@
 package com.example.learningapp
 
+
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.learningapp.databinding.FragmentInfoBinding
 import timber.log.Timber
-import android.widget.PopupMenu
-import androidx.core.view.get
-import androidx.navigation.fragment.findNavController
+
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +38,7 @@ class Fragment_info : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_info, container, false)
+
         try {
             var element = arguments?.let { Fragment_infoArgs.fromBundle(it).lernElement }
 
@@ -46,6 +49,7 @@ class Fragment_info : Fragment() {
                 binding.textViewInfo.text = lesson.text
             }
             generateMenue()
+            generateImage()
             this.changestatus()
         } catch (e: Exception) {
             Timber.i(e)
@@ -81,9 +85,6 @@ class Fragment_info : Fragment() {
                 menuitem.setTitle(spannableString)
             }
 
-
-
-
             itemList.add(lesson.questions[i].getName())
 
         }
@@ -92,6 +93,24 @@ class Fragment_info : Fragment() {
         }
 
         popupMenu.show()
+    }
+    private fun generateImage(){
+        var imagesrc:String=lesson.getImage()
+        if(!(imagesrc.compareTo("null")==0)&&!(imagesrc.compareTo("")==0))
+        {
+            try{
+                Timber.i("imagesrc "+imagesrc)
+                val bImage = BitmapFactory.decodeStream(requireContext().assets.open("Images/"+imagesrc))//.decodeFile("assets/Images/"+imagesrc)
+
+                binding.imageViewDescribtion.setImageBitmap(bImage)
+                binding.imageViewDescribtion.visibility=View.VISIBLE
+
+            }catch (e:java.lang.Exception){
+                Timber.i(e)
+            }
+        }
+
+
     }
 
     private fun changestatus(){
@@ -116,18 +135,13 @@ class Fragment_info : Fragment() {
     private fun onMenuItemClick(item: MenuItem, itemList: MutableList<String>): Boolean {
 
         if (item.itemId < itemList.size) {
-
-
             for (quest in lesson.questions) {
                 if (quest.getName() == itemList[item.itemId]) {
-
                     quest.path = this.path
-
                     var action = Fragment_infoDirections.actionFragmentInfoToQuestionFragment(quest)
                     findNavController().navigate(action)
                 }
             }
-
             return true
         }
         return false

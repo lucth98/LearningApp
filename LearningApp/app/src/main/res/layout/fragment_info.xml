@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -22,10 +23,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/imageViewDescribtion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/ButtonBacktoMenu"
+                    android:visibility="gone"
+                    app:srcCompat="@android:drawable/btn_dialog" />
+
                 <TextView
                     android:id="@+id/textView_info"
                     android:layout_width="match_parent"
                     android:layout_height="395dp" />
+
             </LinearLayout>
         </ScrollView>
 
@@ -34,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Question_Button_text" />
+
     </LinearLayout>
 
 

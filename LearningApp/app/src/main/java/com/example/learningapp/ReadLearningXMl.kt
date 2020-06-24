@@ -73,8 +73,17 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                         try {
                             var atributvalue = parser.getAttributeValue(null, "endtime")
                             if (atributvalue != null) {
-                                var atribut: Atribut = Atribut()
+                                 atribut = Atribut()
                                 atribut.name = "endtime"
+                                atribut.text = atributvalue
+                                lesson.atributList.add(atribut)
+                            }
+
+
+                             atributvalue = parser.getAttributeValue(null, "Image")
+                            if (atributvalue != null) {
+                                 atribut = Atribut()
+                                atribut.name = "Image"
                                 atribut.text = atributvalue
                                 lesson.atributList.add(atribut)
                             }

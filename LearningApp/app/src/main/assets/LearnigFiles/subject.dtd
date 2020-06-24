@@ -11,7 +11,8 @@
     <!ATTLIST lesson
         Name   CDATA #REQUIRED
         finished (true|false) #REQUIRED
-        endtime CDATA #IMPLIED>ss
+        endtime CDATA #IMPLIED
+        Image CDATA #IMPLIED>
     <!ATTLIST question
         Name   CDATA #REQUIRED
         finished (true|false) #REQUIRED
