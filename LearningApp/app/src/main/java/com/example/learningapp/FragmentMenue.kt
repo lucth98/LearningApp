@@ -1,7 +1,10 @@
 package com.example.learningapp
 
 import android.content.res.AssetManager
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -73,6 +76,14 @@ class FragmentMenue : Fragment() {
                 menuinput+=" Wiederholung"
             }
             popupMenu.menu.add(1, i, i, menuinput)
+
+            if(subject.lessons[i].getfinished())
+            {
+                var menuitem=popupMenu.menu.getItem(i)
+                var spannableString: SpannableString = SpannableString(menuinput)
+                spannableString.setSpan(ForegroundColorSpan(Color.GREEN),0,spannableString.length,0)
+                menuitem.setTitle(spannableString)
+            }
             itemList.add(subject.lessons[i].getName())
         }
         popupMenu.setOnMenuItemClickListener {

@@ -146,7 +146,7 @@ class QuestionFragment : Fragment() {
 
     private fun checkAnswer(): Boolean? {
         var index: Int = binding.RadioGroupQuestions.checkedRadioButtonId
-        var value: Boolean?=null
+        var value: Boolean? = null
 
         if (index == -1) {
             value = null
