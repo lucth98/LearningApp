@@ -65,6 +65,27 @@
                     android:layout_height="wrap_content"
                     android:text="@string/Text_finish_Button" />
 
+                <Button
+                    android:id="@+id/reset_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ButtonResetText"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/backToLesson_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/BackToLessonButtonText"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/menue_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ButtonBacktoMenu"
+                    android:visibility="gone" />
+
             </LinearLayout>
         </ScrollView>
 

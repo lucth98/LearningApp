@@ -16,23 +16,13 @@ class UpdateLearningXML(var context: Context) {
     private val atributefinishedIndexQuestion: Int = 1
     private val atributeNameIndexLesson: Int = 0
     private val atributefinishedIndexLesson: Int = 1
-    private val questiontag = "question"
-    private val lessonntag = "lesson"
+    public val questiontag = "question"
+    public val lessonntag = "lesson"
 
-    private fun generateDoc_Assets(path: String): Document {
+    /*private fun generateDoc_Assets(path: String): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
-     //   Timber.i("path= " + path)
-
-
-        var doc = builder.parse(context.assets.open(path))//.parse(context.openFileInput(path))//getAssets().open(path))//context.openFileInput(path))
-        // doc.documentURI = path
-        /*if (doc != null) {
-            Timber.i("doc uri= " + doc.documentURI)
-            Timber.i("xml= " + doc.xmlEncoding)
-        } else {
-            Timber.i("Error")
-        }*/
+        var doc = builder.parse(context.assets.open(path))
         return doc
     }
 
@@ -40,65 +30,31 @@ class UpdateLearningXML(var context: Context) {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
         Timber.i("path= " + path)
-
         var doc = builder.parse(context.openFileInput(path))
-        // doc.documentURI = path
-        if (doc != null) {
-            Timber.i("doc uri= " + doc.documentURI)
-            Timber.i("xml= " + doc.xmlEncoding)
-        } else {
-            Timber.i("Error")
-        }
         return doc
+    }*/
+
+    private fun generateDoc(path: String, fromAssets: Boolean): Document {
+        var factory = DocumentBuilderFactory.newInstance()
+        var builder = factory.newDocumentBuilder()
+        Timber.i("path= " + path)
+        if (fromAssets) {
+            return builder.parse(context.assets.open(path))
+        } else {
+            return builder.parse(context.openFileInput(path))
+        }
+
+
     }
 
     public fun saveInInternalStorage(path: String, name: String) {
-        var doc = this.generateDoc_Assets(path)
+        var doc = this.generateDoc(path,true)//&this.generateDoc_Assets(path)
         this.transform(doc, name)
     }
 
-    public fun changeQuestion(path: String, question: Question, setFinish: Boolean) {
 
-        Timber.i("changeQuestion")
-        var doc = this.generateDoc_InternalStorage(path)
-
-        var nodeList = doc.getElementsByTagName(questiontag)
-
-        for (i in 0 until nodeList.length step 1) {
-            var node = nodeList.item(i)
-            var atributes = node.attributes
-
-            if (atributes.item(atributeNameIndexQuestion).nodeValue.compareTo(question.getName()) == 0) {
-
-                Timber.i("Wert = " + atributes.item(atributefinishedIndexQuestion).nodeValue)
-                atributes.item(atributefinishedIndexQuestion).nodeValue = setFinish.toString()
-                Timber.i("Wert = " + atributes.item(atributefinishedIndexQuestion).nodeValue)
-            }
-        }
-        this.transform(doc, path)
-
-    }
-
-    public fun changeLesson(path: String, question: Question, setFinish: Boolean) {
-        var doc = this.generateDoc_InternalStorage(path)
-
-        var nodeList = doc.getElementsByTagName(lessonntag)
-
-        for (i in 0 until nodeList.length step 1) {
-            var node = nodeList.item(i)
-            var atributes = node.attributes
-
-            if (atributes.item(atributeNameIndexLesson).nodeValue.compareTo(question.getName()) == 0) {
-                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
-                atributes.item(atributefinishedIndexLesson).nodeValue = setFinish.toString()
-                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
-            }
-        }
-        this.transform(doc, path)
-    }
-
-    public fun changeLearnigElement(path: String, LearningElement: LearningElement, setFinish: Boolean,tag:String) {
-        var doc = this.generateDoc_InternalStorage(path)
+    public fun changeLearnigElement(path: String, LearningElement: LearningElement, setFinish: Boolean, tag: String) {
+        var doc = this.generateDoc(path,false)//this.generateDoc_InternalStorage(path)
 
         var nodeList = doc.getElementsByTagName(tag)
 
@@ -114,8 +70,6 @@ class UpdateLearningXML(var context: Context) {
         }
         this.transform(doc, path)
     }
-
-
 
 
     private fun transform(doc: Document, name: String) {

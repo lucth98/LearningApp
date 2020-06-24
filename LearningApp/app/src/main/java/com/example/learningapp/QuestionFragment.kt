@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.RadioButton
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.learningapp.databinding.FragmentQuestionBinding
 import timber.log.Timber
 
@@ -62,7 +65,7 @@ class QuestionFragment : Fragment() {
 
             var element = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement }
             path = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement.path }.toString()
-           // Timber.i("path ="+path)
+            // Timber.i("path ="+path)
             if (element is Question) {
                 question = element
 
@@ -76,6 +79,9 @@ class QuestionFragment : Fragment() {
             binding.buttonFinish.setOnClickListener {
                 finshButtonAction()
             }
+            binding.resetButton.setOnClickListener { reset() }
+            binding.menueButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_questionFragment_to_startFragment))
+            binding.backToLessonButton.setOnClickListener { backToLesson() }
 
         } catch (e: Exception) {
             Timber.i("Error")
@@ -87,31 +93,38 @@ class QuestionFragment : Fragment() {
         return binding.root
     }
 
+    private fun backToLesson() {
+        val navController = this.findNavController()
+        navController.navigateUp()
+    }
+
     private fun finshButtonAction() {
         try {
 
-
-            binding.RadioGroupQuestions.visibility = View.GONE
-            binding.textViewResult.visibility = View.VISIBLE
             binding.textViewResult.text = checkAnswer().toString()
-            if (checkAnswer()) {
-                binding.lilLayout.setBackgroundColor(Color.rgb(50, 205, 50))
-                var updateLearningXML = UpdateLearningXML(this.requireContext())
-                updateLearningXML.changeQuestion(this.path, this.question, true)
+            var answerisRight: Boolean? = checkAnswer()
+            if (answerisRight != null) {
+                binding.RadioGroupQuestions.visibility = View.GONE
+                binding.textViewResult.visibility = View.VISIBLE
+                if (answerisRight) {
+                    binding.lilLayout.setBackgroundColor(Color.rgb(50, 205, 50))
+                    var updateLearningXML = UpdateLearningXML(this.requireContext())
+                    //updateLearningXML.changeQuestion(this.path, this.question, true)
+                    updateLearningXML.changeLearnigElement(this.path, this.question, true, updateLearningXML.questiontag)
+                    binding.menueButton.visibility = View.VISIBLE
+                    binding.backToLessonButton.visibility = View.VISIBLE
+                    binding.buttonFinish.visibility = View.GONE
 
 
-            } else {
-                binding.lilLayout.setBackgroundColor(Color.rgb(255, 99, 7))
-            }
-            if (question.getfinished()) {
+                } else {
+                    binding.lilLayout.setBackgroundColor(Color.rgb(255, 99, 7))
+
+                    binding.menueButton.visibility = View.VISIBLE
+                    binding.resetButton.visibility = View.VISIBLE
+                    binding.buttonFinish.visibility = View.GONE
 
 
-                binding.textViewResult.setBackgroundColor(Color.rgb(0, 0, 255))
-            } else {
-
-
-                binding.textViewResult.setBackgroundColor(Color.rgb(255, 165, 0))
-
+                }
             }
 
         } catch (e: Exception) {
@@ -119,23 +132,36 @@ class QuestionFragment : Fragment() {
         }
     }
 
-    private fun checkAnswer(): Boolean {
-        for (i in 0..question.answer.size - 1) {
-            for (atribut in question.answer[i].atributList) {
-                if (atribut.name.compareTo("isCorrect") == 0 && atribut.text.compareTo("true") == 0) {
 
-                    var button = binding.RadioGroupQuestions.get(i)
+    private fun reset() {
+        binding.buttonFinish.visibility = View.VISIBLE
+        binding.RadioGroupQuestions.visibility = View.VISIBLE
+        binding.textViewResult.visibility = View.GONE
+        binding.menueButton.visibility = View.GONE
+        binding.resetButton.visibility = View.GONE
+        binding.lilLayout.setBackgroundColor(Color.WHITE)
 
-                    if (button is RadioButton) {
-                        if (!button.isChecked) {
-                            return false
-                        }
+
+    }
+
+    private fun checkAnswer(): Boolean? {
+        var index: Int = binding.RadioGroupQuestions.checkedRadioButtonId
+        var value: Boolean?=null
+
+        if (index == -1) {
+            value = null
+        } else {
+            for (i in 0 until question.answer.size) {
+                for (atribut in question.answer[i].atributList) {
+
+                    if (atribut.name.compareTo("isCorrect") == 0 && atribut.text.compareTo("true") == 0) {
+                        value = index == i
+                        break
                     }
                 }
             }
         }
-        return true
+
+        return value
     }
-
-
 }

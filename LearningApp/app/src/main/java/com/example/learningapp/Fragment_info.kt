@@ -83,7 +83,7 @@ class Fragment_info : Fragment() {
     private fun changestatus(){
         if(this.checkiffinshed()){
             var updateLearningXML:UpdateLearningXML= UpdateLearningXML(this.requireContext())
-            updateLearningXML.changeLearnigElement(path,this.lesson,true,"lesson")
+            updateLearningXML.changeLearnigElement(path,this.lesson,true,updateLearningXML.lessonntag)
         }
     }
 

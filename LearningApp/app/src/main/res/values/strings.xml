@@ -11,4 +11,5 @@
     <string name="Question_Button_text">Questions</string>
     <string name="ButtonResetText">Reset</string>
     <string name="ButtonBacktoMenu">Back to Menue</string>
+    <string name="BackToLessonButtonText">Back to Lesson</string>
 </resources>
