@@ -10,7 +10,8 @@
         Name   CDATA #REQUIRED>
     <!ATTLIST lesson
         Name   CDATA #REQUIRED
-        finished (true|false) #REQUIRED>
+        finished (true|false) #REQUIRED
+        endtime CDATA #IMPLIED>ss
     <!ATTLIST question
         Name   CDATA #REQUIRED
         finished (true|false) #REQUIRED

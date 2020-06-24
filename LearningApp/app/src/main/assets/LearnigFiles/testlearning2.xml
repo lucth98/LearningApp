@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject SYSTEM "subject.dtd">
 <subject Name="Test">
     <text> testfach</text>
-    <lesson Name="lesson 1" finished="false">
+    <lesson Name="lesson 1" finished="false" endtime="">
         <text>lesson 1 esfewf</text>
-        <question Name="Question 1" finished="false">
+        <question Name="Question 1" finished="false" >
             <text>
                 5*5=?
             </text>
@@ -18,7 +18,7 @@
             </answer>
         </question>
     </lesson>
-    <lesson Name="lesson 2" finished="false">
+    <lesson Name="lesson 2" finished="false" endtime="">
         <text>lesson 2  sdfkueggkuzfugzeizl</text>
         <question Name="Frage 1" finished="false">
             <text>4!</text>
@@ -27,7 +27,7 @@
             <answer isCorrect="false">1243</answer>
         </question>
     </lesson>
-    <lesson Name="Lesson 3" finished="false">
+    <lesson Name="Lesson 3" finished="false" endtime="">
         <text>lesson -1 sfgiuewiluh efwilugilzif iuuggiu f
         </text>
         <question Name="bhbhdd" finished="false">

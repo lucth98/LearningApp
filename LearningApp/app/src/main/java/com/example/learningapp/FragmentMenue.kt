@@ -54,7 +54,7 @@ class FragmentMenue : Fragment() {
             for ((index, value) in subjectlist.withIndex()) {
 
                 var button: Button = Button(this.requireContext())
-                button.text = filenameslist[index].toString()
+                button.text = subjectlist[index].getName().toString()
                 button.setOnClickListener { genPopupMenue(it, subjectlist[index]) }
                 binding.menueLayout.addView(button)
             }

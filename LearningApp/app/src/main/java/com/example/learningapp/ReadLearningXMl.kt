@@ -7,7 +7,6 @@ import org.xmlpull.v1.XmlPullParserFactory
 import timber.log.Timber
 import java.io.IOException
 import java.io.InputStream
-import kotlin.time.TestTimeSource
 
 
 class ReadLearningXMl(var context: Context, var path: String = "") {
@@ -15,7 +14,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
     private fun genStream(): InputStream {
 
-        var input: InputStream = context.openFileInput(path) //context.getAssets().open(path)
+        var input: InputStream = context.openFileInput(path)
         return input
     }
 
@@ -58,27 +57,33 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                 when (tag) {
 
-                    "lesson"->{
-                   /*     for (i in 0 until parser.attributeCount step 1) {
-                            var atribut: Atribut = Atribut()
-                            atribut.name = parser.getAttributeName(i).trim()
-                            atribut.text = parser.getAttributeValue() //parser.getAttributeValue(i).trim()
+                    "lesson" -> {
 
-                            lesson.atributList.add(atribut)
-                        }*/
                         var atribut: Atribut = Atribut()
 
                         atribut.name = "Name"
-                        atribut.text = parser.getAttributeValue(null,"Name") //parser.getAttributeValue(i).trim()
-
+                        atribut.text = parser.getAttributeValue(null, "Name")
                         lesson.atributList.add(atribut)
-
-                        atribut=Atribut()
-
+                        atribut = Atribut()
                         atribut.name = "finished"
-                        atribut.text = parser.getAttributeValue(null,"finished") //parser.getAttributeValue(i).trim()
-
+                        atribut.text = parser.getAttributeValue(null, "finished")
                         lesson.atributList.add(atribut)
+
+
+                        try {
+                            var atributvalue = parser.getAttributeValue(null, "endtime")
+                            if (atributvalue != null) {
+                                var atribut: Atribut = Atribut()
+                                atribut.name = "endtime"
+                                atribut.text = atributvalue
+                                lesson.atributList.add(atribut)
+                            }
+
+                        } catch (e: Exception) {
+                            Timber.i(e)
+                        }
+
+
                     }
                     "question" -> {
                         lesson.questions.add(genQuestion(parser))
@@ -123,25 +128,19 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                 when (tag) {
 
-                    "question"->{
-                        /*for (i in 0..parser.attributeCount - 1 step 1) {
-                            var atribut: Atribut = Atribut()
-                            atribut.name = parser.getAttributeName(i).trim()
-                            atribut.text = parser.getAttributeValue(i).trim()
+                    "question" -> {
 
-                            question.atributList.add(atribut)
-                        }*/
                         var atribut: Atribut = Atribut()
                         atribut.name = "Name"
-                        atribut.text = parser.getAttributeValue(null,"Name") //parser.getAttributeValue(i).trim()
+                        atribut.text = parser.getAttributeValue(null, "Name")
 
                         question.atributList.add(atribut)
 
-                        atribut= Atribut()
+                        atribut = Atribut()
 
                         atribut.name = "finished"
-                        atribut.text = parser.getAttributeValue(null,"finished") //parser.getAttributeValue(i).trim()
-                        Timber.i("finished"+parser.getAttributeValue(null,"finished"))
+                        atribut.text = parser.getAttributeValue(null, "finished")
+                        Timber.i("finished" + parser.getAttributeValue(null, "finished"))
                         question.atributList.add(atribut)
                     }
 
@@ -181,30 +180,18 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
         while (event != XmlPullParser.END_DOCUMENT) {
             var tag = parser.name
 
-          /*  for (i in 0..parser.attributeCount - 1 step 1) {
-                var atribut: Atribut = Atribut()
-                atribut.name = parser.getAttributeName(i).trim()
-                atribut.text = parser.getAttributeValue(i).trim()
 
-                answer.atributList.add(atribut)
-            }*/
 
 
             if (event == XmlPullParser.START_TAG) {
                 Timber.i(tag)
                 when (tag) {
 
-                    "answer"->{
-                        /*for (i in 0..parser.attributeCount - 1 step 1) {
-                            var atribut: Atribut = Atribut()
-                            atribut.name = parser.getAttributeName(i).trim()
-                            atribut.text = parser.getAttributeValue(i).trim()
+                    "answer" -> {
 
-                            question.atributList.add(atribut)
-                        }*/
                         var atribut: Atribut = Atribut()
                         atribut.name = "isCorrect"
-                        atribut.text = parser.getAttributeValue(null,"isCorrect") //parser.getAttributeValue(i).trim()
+                        atribut.text = parser.getAttributeValue(null, "isCorrect") //parser.getAttributeValue(i).trim()
 
                         answer.atributList.add(atribut)
                     }
@@ -238,7 +225,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
         myparser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false)
         myparser.setInput(this.genStream(), null)
         var event = myparser.eventType
-      //  var text: String = ""
+
 
 
         while (event != XmlPullParser.END_DOCUMENT) {
@@ -253,17 +240,10 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
 
                     when (tag) {
                         "subject" -> {
-                          //  myparser.setProperty()
-                          /*  for (i in 0..myparser.attributeCount - 1 step 1) {
-                                var atribut: Atribut = Atribut()
-                                atribut.name = myparser.getAttributeName(i).trim()
-                                atribut.text = myparser.getAttributeValue(i).trim()
 
-                                value.atributList.add(atribut)
-                            }*/
                             var atribut: Atribut = Atribut()
                             atribut.name = "Name"
-                            atribut.text = myparser.getAttributeValue(null,"Name") //parser.getAttributeValue(i).trim()
+                            atribut.text = myparser.getAttributeValue(null, "Name") //parser.getAttributeValue(i).trim()
 
                             value.atributList.add(atribut)
                         }
@@ -275,9 +255,6 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
                     }
                 }
 
-              /*  XmlPullParser.TEXT -> {
-                    text = myparser.text
-                }*/
 
                 XmlPullParser.END_TAG -> {
 
