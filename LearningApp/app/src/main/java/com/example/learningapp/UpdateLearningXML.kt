@@ -19,29 +19,16 @@ class UpdateLearningXML(var context: Context) {
     public val questiontag = "question"
     public val lessonntag = "lesson"
 
-    /*private fun generateDoc_Assets(path: String): Document {
-        var factory = DocumentBuilderFactory.newInstance()
-        var builder = factory.newDocumentBuilder()
-        var doc = builder.parse(context.assets.open(path))
-        return doc
-    }
 
-    private fun generateDoc_InternalStorage(path: String): Document {
-        var factory = DocumentBuilderFactory.newInstance()
-        var builder = factory.newDocumentBuilder()
-        Timber.i("path= " + path)
-        var doc = builder.parse(context.openFileInput(path))
-        return doc
-    }*/
 
     private fun generateDoc(path: String, fromAssets: Boolean): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
         Timber.i("path= " + path)
-        if (fromAssets) {
-            return builder.parse(context.assets.open(path))
+        return if (fromAssets) {
+            builder.parse(context.assets.open(path))
         } else {
-            return builder.parse(context.openFileInput(path))
+            builder.parse(context.openFileInput(path))
         }
 
 
@@ -98,8 +85,8 @@ class UpdateLearningXML(var context: Context) {
     }
 
     private fun tetst() {
-        for (strin in context.fileList()) {
-            Timber.i("Test Filename =" + strin)
+        for (string in context.fileList()) {
+            Timber.i("Test Filename =" + string)
         }
     }
 
