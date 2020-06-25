@@ -67,16 +67,12 @@ class DatePickerFragment : Fragment() {
             calendar.set(binding.datePicker.year, binding.datePicker.month, binding.datePicker.dayOfMonth)
             var date: Date = calendar.time*/
 
-
             var updateLearningXML=UpdateLearningXML(this.requireContext())
             var month=binding.datePicker.month
             var day=binding.datePicker.dayOfMonth
             var year=binding.datePicker.year
             month+=1
             updateLearningXML.changeTimeLesson(lesson.path,lesson,day.toString()+"-"+month.toString()+"-"+year.toString())
-
-
-
 
         }catch (e:Exception){
             Timber.i(e)

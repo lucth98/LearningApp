@@ -9,7 +9,7 @@
     <string name="String_questions">Questions</string>
     <string name="Text_finish_Button">Finish</string>
     <string name="Question_Button_text">Questions</string>
-    <string name="ButtonResetText">Reset</string>
+    <string name="ButtonResetText">Reset All</string>
     <string name="ButtonBacktoMenu">Back to Menue</string>
     <string name="BackToLessonButtonText">Back to Lesson</string>
     <string name="setTimeButtonText">set End Time</string>

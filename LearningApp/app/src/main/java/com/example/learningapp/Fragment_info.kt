@@ -18,6 +18,7 @@ import com.example.learningapp.databinding.FragmentInfoBinding
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -81,6 +82,11 @@ class Fragment_info : Fragment() {
                // binding.warnigTextView.text=endtime.toString()
                 Timber.i("tag jetzt="+currrentTime+"tag ende="+endtime)
                 if(currrentTime.before(endtime)){
+                    var diff =endtime.time-currrentTime.time
+                    var daydifference=TimeUnit.MILLISECONDS.toDays(diff)
+                    binding.warnigTextView.visibility=View.VISIBLE
+                    binding.warnigTextView.text="nach "+daydifference.toString()+" Tage verfügbar"//endtime.toString()"
+                    binding.warnigTextView.setBackgroundColor(Color.GREEN)
 
                 }else
                 {
