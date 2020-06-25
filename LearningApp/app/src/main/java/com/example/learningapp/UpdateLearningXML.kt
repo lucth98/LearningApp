@@ -16,6 +16,7 @@ class UpdateLearningXML(var context: Context) {
     private val atributefinishedIndexQuestion: Int = 1
     private val atributeNameIndexLesson: Int = 0
     private val atributefinishedIndexLesson: Int = 1
+    private val atributeTime: Int = 2
     public val questiontag = "question"
     public val lessonntag = "lesson"
 
@@ -37,6 +38,24 @@ class UpdateLearningXML(var context: Context) {
     public fun saveInInternalStorage(path: String, name: String) {
         var doc = this.generateDoc(path,true)//&this.generateDoc_Assets(path)
         this.transform(doc, name)
+    }
+
+    public fun changeTimeLesson(path: String, LearningElement: Lesson, setTime: String) {
+        var doc = this.generateDoc(path,false)//this.generateDoc_InternalStorage(path)
+
+        var nodeList = doc.getElementsByTagName(lessonntag)
+
+        for (i in 0 until nodeList.length step 1) {
+            var node = nodeList.item(i)
+            var atributes = node.attributes
+
+            if (atributes.item(atributeNameIndexLesson).nodeValue.compareTo(LearningElement.getName()) == 0) {
+                Timber.i("Wert = " + atributes.item(atributeTime).nodeValue)
+                atributes.item(atributeTime).nodeValue = setTime
+                Timber.i("Wert = " + atributes.item(atributeTime).nodeValue)
+            }
+        }
+        this.transform(doc, path)
     }
 
 

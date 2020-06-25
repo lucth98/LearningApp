@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.learningapp.databinding.FragmentInfoBinding
 import timber.log.Timber
@@ -50,6 +51,10 @@ class Fragment_info : Fragment() {
             }
             generateMenue()
             generateImage()
+
+            binding.SetEndTimeButton.setOnClickListener{
+                todateBicker()
+            }
             this.changestatus()
         } catch (e: Exception) {
             Timber.i(e)
@@ -57,6 +62,11 @@ class Fragment_info : Fragment() {
 
         return binding.root
     }
+    private fun todateBicker(){
+        var action = Fragment_infoDirections.actionFragmentInfoToDatePickerFragment2(lesson)
+        findNavController().navigate(action)
+    }
+
 
 
     private fun generateMenue() {

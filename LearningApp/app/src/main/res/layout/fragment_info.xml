@@ -23,6 +23,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <Button
+                    android:id="@+id/SetEndTime_Button"
+                    android:layout_width="126dp"
+                    android:layout_height="38dp"
+
+                    android:text="@string/setTimeButtonText"
+                    android:visibility="gone" />
+
+
                 <ImageView
                     android:id="@+id/imageViewDescribtion"
                     android:layout_width="match_parent"

@@ -49,6 +49,9 @@
         <argument
             android:name="lernElement"
             app:argType="com.example.learningapp.LearningElement" />
+        <action
+            android:id="@+id/action_fragment_info_to_datePickerFragment2"
+            app:destination="@id/datePickerFragment2" />
     </fragment>
     <fragment
         android:id="@+id/optionsFragment"
@@ -57,5 +60,16 @@
         <action
             android:id="@+id/action_optionsFragment_to_startFragment"
             app:destination="@id/startFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/datePickerFragment2"
+        android:name="com.example.learningapp.DatePickerFragment"
+        android:label="DatePickerFragment" >
+        <argument
+            android:name="lernElement"
+            app:argType="com.example.learningapp.LearningElement" />
+        <action
+            android:id="@+id/action_datePickerFragment2_to_fragmentMenue"
+            app:destination="@id/fragmentMenue" />
     </fragment>
 </navigation>
