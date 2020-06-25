@@ -51,29 +51,25 @@ class OptionsFragment : Fragment() {
         this.generateResetButtons()
         return binding.root
     }
-    private fun delete(name:String){
+
+    private fun delete(name: String) {
         var saveFiles = SaveFiles(this.requireContext())
         saveFiles.deleteFile(name)
     }
-    private fun generateResetButtons()
-    {
+
+    private fun generateResetButtons() {
         try {
-
-
             var saveFiles = SaveFiles(this.requireContext())
-            for(file in saveFiles.getFilnamesInternalStorage())
-            {
-                var Button=Button(this.requireContext())
-                Button.text="reset "+file.toString()
-                Button.setOnClickListener{
+            for (file in saveFiles.getFilnamesInternalStorage()) {
+                var Button = Button(this.requireContext())
+                Button.text = "reset " + file.toString()
+                Button.setOnClickListener {
                     delete(file)
 
                 }
                 binding.linLayout.addView(Button)
-
             }
-
-        }catch (e:Exception){
+        } catch (e: Exception) {
             Timber.i(e)
         }
     }

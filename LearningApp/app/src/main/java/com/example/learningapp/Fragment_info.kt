@@ -68,50 +68,45 @@ class Fragment_info : Fragment() {
 
     private fun checkDate() {
 
-        var string=lesson.getTime()
-        if (!(string.compareTo("null") == 0) && !(string.compareTo("") == 0)) {
+        var string = lesson.getTime()
+        if (lesson.gethasTime()){//(!(string.compareTo("null") == 0) && !(string.compareTo("") == 0)) {
             try {
 
-                Timber.i("string Date ="+string)
+               /* Timber.i("string Date =" + string)
 
 
                 val format = SimpleDateFormat("dd-MM-yyyy")
-                var endtime: Date =format.parse(string)
-                var currrentTime:Date=Calendar.getInstance().time
-               // binding.warnigTextView.visibility=View.VISIBLE
-               // binding.warnigTextView.text=endtime.toString()
-                Timber.i("tag jetzt="+currrentTime+"tag ende="+endtime)
-                if(currrentTime.before(endtime)){
-                    var diff =endtime.time-currrentTime.time
-                    var daydifference=TimeUnit.MILLISECONDS.toDays(diff)
-                    binding.warnigTextView.visibility=View.VISIBLE
-                    binding.warnigTextView.text="nach "+daydifference.toString()+" Tage verfügbar"//endtime.toString()"
+                var endtime: Date = format.parse(string)
+                var currrentTime: Date = Calendar.getInstance().time
+
+                Timber.i("tag jetzt=" + currrentTime + "tag ende=" + endtime)*/
+                if (lesson.hasTimerunout()){//currrentTime.before(endtime)) {
+                  /*  var diff = endtime.time - currrentTime.time*/
+                    var daydifference =lesson.getTimeDifference() //TimeUnit.MILLISECONDS.toDays(diff)
+
+                    binding.warnigTextView.visibility = View.VISIBLE
+                    binding.warnigTextView.text = "nach " + daydifference.toString() + " Tage verfügbar"//endtime.toString()"
                     binding.warnigTextView.setBackgroundColor(Color.GREEN)
 
-                }else
-                {
-                    binding.imageViewDescribtion.visibility=View.GONE
-                    binding.buttonQuestions.visibility=View.GONE
-                    binding.imageViewDescribtion.visibility=View.GONE
-                    binding.textViewInfo.visibility=View.GONE
-                    binding.textViewHeading.visibility=View.GONE
+                } else {
+                    binding.imageViewDescribtion.visibility = View.GONE
+                    binding.buttonQuestions.visibility = View.GONE
+                    binding.imageViewDescribtion.visibility = View.GONE
+                    binding.textViewInfo.visibility = View.GONE
+                    binding.textViewHeading.visibility = View.GONE
 
-                    binding.warnigTextView.visibility=View.VISIBLE
-                    binding.warnigTextView.text="Zeit abgelaufen"//endtime.toString()"
+                    binding.warnigTextView.visibility = View.VISIBLE
+                    binding.warnigTextView.text = "Zeit abgelaufen"//endtime.toString()"
                     binding.warnigTextView.setBackgroundColor(Color.RED)
 
                 }
 
 
-
-
-            }catch (e:Exception)
-            {
+            } catch (e: Exception) {
                 Timber.i(e)
             }
-        }
-        else{
-            binding.SetEndTimeButton.visibility=View.VISIBLE
+        } else {
+            binding.SetEndTimeButton.visibility = View.VISIBLE
         }
     }
 
