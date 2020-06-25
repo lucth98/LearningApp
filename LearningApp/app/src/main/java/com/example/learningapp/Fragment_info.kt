@@ -13,10 +13,11 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.learningapp.databinding.FragmentInfoBinding
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -52,9 +53,10 @@ class Fragment_info : Fragment() {
             generateMenue()
             generateImage()
 
-            binding.SetEndTimeButton.setOnClickListener{
+            binding.SetEndTimeButton.setOnClickListener {
                 todateBicker()
             }
+            this.checkDate()
             this.changestatus()
         } catch (e: Exception) {
             Timber.i(e)
@@ -62,11 +64,56 @@ class Fragment_info : Fragment() {
 
         return binding.root
     }
-    private fun todateBicker(){
+
+    private fun checkDate() {
+
+        var string=lesson.getTime()
+        if (!(string.compareTo("null") == 0) && !(string.compareTo("") == 0)) {
+            try {
+
+                Timber.i("string Date ="+string)
+
+
+                val format = SimpleDateFormat("dd-MM-yyyy")
+                var endtime: Date =format.parse(string)
+                var currrentTime:Date=Calendar.getInstance().time
+               // binding.warnigTextView.visibility=View.VISIBLE
+               // binding.warnigTextView.text=endtime.toString()
+                Timber.i("tag jetzt="+currrentTime+"tag ende="+endtime)
+                if(currrentTime.before(endtime)){
+
+                }else
+                {
+                    binding.imageViewDescribtion.visibility=View.GONE
+                    binding.buttonQuestions.visibility=View.GONE
+                    binding.imageViewDescribtion.visibility=View.GONE
+                    binding.textViewInfo.visibility=View.GONE
+                    binding.textViewHeading.visibility=View.GONE
+
+                    binding.warnigTextView.visibility=View.VISIBLE
+                    binding.warnigTextView.text="Zeit abgelaufen"//endtime.toString()"
+                    binding.warnigTextView.setBackgroundColor(Color.RED)
+
+                }
+
+
+
+
+            }catch (e:Exception)
+            {
+                Timber.i(e)
+            }
+        }
+        else{
+            binding.SetEndTimeButton.visibility=View.VISIBLE
+        }
+    }
+
+
+    private fun todateBicker() {
         var action = Fragment_infoDirections.actionFragmentInfoToDatePickerFragment2(lesson)
         findNavController().navigate(action)
     }
-
 
 
     private fun generateMenue() {
@@ -81,17 +128,15 @@ class Fragment_info : Fragment() {
         var itemList: MutableList<String> = mutableListOf()
         for (i in 0 until lesson.questions.size) {
 
-            var menueString:String=lesson.questions[i].getName()
-            if(lesson.questions[i].getfinished())
-            {
-                menueString+=" Wiederholung"
+            var menueString: String = lesson.questions[i].getName()
+            if (lesson.questions[i].getfinished()) {
+                menueString += " Wiederholung"
             }
             popupMenu.menu.add(1, i, i, menueString)
-            if(lesson.questions[i].getfinished())
-            {
-                var menuitem=popupMenu.menu.getItem(i)
-                var spannableString:SpannableString= SpannableString(menueString)
-                spannableString.setSpan(ForegroundColorSpan(Color.GREEN),0,spannableString.length,0)
+            if (lesson.questions[i].getfinished()) {
+                var menuitem = popupMenu.menu.getItem(i)
+                var spannableString: SpannableString = SpannableString(menueString)
+                spannableString.setSpan(ForegroundColorSpan(Color.GREEN), 0, spannableString.length, 0)
                 menuitem.setTitle(spannableString)
             }
 
@@ -104,18 +149,18 @@ class Fragment_info : Fragment() {
 
         popupMenu.show()
     }
-    private fun generateImage(){
-        var imagesrc:String=lesson.getImage()
-        if(!(imagesrc.compareTo("null")==0)&&!(imagesrc.compareTo("")==0))
-        {
-            try{
-                Timber.i("imagesrc "+imagesrc)
-                val bImage = BitmapFactory.decodeStream(requireContext().assets.open("Images/"+imagesrc))//.decodeFile("assets/Images/"+imagesrc)
+
+    private fun generateImage() {
+        var imagesrc: String = lesson.getImage()
+        if (!(imagesrc.compareTo("null") == 0) && !(imagesrc.compareTo("") == 0)) {
+            try {
+                Timber.i("imagesrc " + imagesrc)
+                val bImage = BitmapFactory.decodeStream(requireContext().assets.open("Images/" + imagesrc))//.decodeFile("assets/Images/"+imagesrc)
 
                 binding.imageViewDescribtion.setImageBitmap(bImage)
-                binding.imageViewDescribtion.visibility=View.VISIBLE
+                binding.imageViewDescribtion.visibility = View.VISIBLE
 
-            }catch (e:java.lang.Exception){
+            } catch (e: java.lang.Exception) {
                 Timber.i(e)
             }
         }
@@ -123,18 +168,17 @@ class Fragment_info : Fragment() {
 
     }
 
-    private fun changestatus(){
-        if(this.checkiffinshed()){
-            var updateLearningXML:UpdateLearningXML= UpdateLearningXML(this.requireContext())
-            updateLearningXML.changeLearnigElement(path,this.lesson,true,updateLearningXML.lessonntag)
+    private fun changestatus() {
+        if (this.checkiffinshed()) {
+            var updateLearningXML: UpdateLearningXML = UpdateLearningXML(this.requireContext())
+            updateLearningXML.changeLearnigElement(path, this.lesson, true, updateLearningXML.lessonntag)
         }
     }
 
 
-
-    private fun checkiffinshed():Boolean{
-        for (question in this.lesson.questions){
-            if(!question.getfinished()){
+    private fun checkiffinshed(): Boolean {
+        for (question in this.lesson.questions) {
+            if (!question.getfinished()) {
                 return false
             }
         }

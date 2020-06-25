@@ -5,15 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.app.DatePickerDialog
-import android.app.Dialog
-
-import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.example.learningapp.databinding.FragmentDatePickerBinding
-
 import timber.log.Timber
 import java.util.*
 
@@ -69,13 +63,17 @@ class DatePickerFragment : Fragment() {
             Timber.i(binding.datePicker.month.toString())
             Timber.i(binding.datePicker.dayOfMonth.toString())
 
-            var calendar = Calendar.getInstance()
+           /* var calendar = Calendar.getInstance()
             calendar.set(binding.datePicker.year, binding.datePicker.month, binding.datePicker.dayOfMonth)
-            var date: Date = calendar.time
+            var date: Date = calendar.time*/
 
 
             var updateLearningXML=UpdateLearningXML(this.requireContext())
-            updateLearningXML.changeTimeLesson(lesson.path,lesson,date.toString())
+            var month=binding.datePicker.month
+            var day=binding.datePicker.dayOfMonth
+            var year=binding.datePicker.year
+            month+=1
+            updateLearningXML.changeTimeLesson(lesson.path,lesson,day.toString()+"-"+month.toString()+"-"+year.toString())
 
 
 
@@ -86,27 +84,6 @@ class DatePickerFragment : Fragment() {
 
 
     }
-    /*
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
 
-        // Create a new instance of DatePickerDialog and return it
-        return DatePickerDialog(this.requireContext(), this, year, month, day)
-
-    }
-
-
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        this.dayOfMonth=dayOfMonth
-        this.month=month
-        this.year=year
-        Timber.i("year= "+year)
-        Timber.i("day= "+dayOfMonth)
-        Timber.i("month= "+month)
-    }
-*/
 
 }

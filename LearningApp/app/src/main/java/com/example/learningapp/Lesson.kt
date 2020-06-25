@@ -18,6 +18,15 @@ class Lesson():LearningElement() {
         }
         return value
     }
+    public fun getTime():String{
+        var value:String="null"
+        for(atribut in this.atributList){
+            if(atribut.name.compareTo("endtime")==0){
+                value=atribut.text.toString()
+            }
+        }
+        return value
+    }
 
 
 }
