@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.learningapp.databinding.FragmentOptionsBinding
@@ -47,8 +48,34 @@ class OptionsFragment : Fragment() {
 
 
         binding.buttonBacktoMenue.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_optionsFragment_to_startFragment))
-
+        this.generateResetButtons()
         return binding.root
+    }
+    private fun delete(name:String){
+        var saveFiles = SaveFiles(this.requireContext())
+        saveFiles.deleteFile(name)
+    }
+    private fun generateResetButtons()
+    {
+        try {
+
+
+            var saveFiles = SaveFiles(this.requireContext())
+            for(file in saveFiles.getFilnamesInternalStorage())
+            {
+                var Button=Button(this.requireContext())
+                Button.text="reset "+file.toString()
+                Button.setOnClickListener{
+                    delete(file)
+
+                }
+                binding.linLayout.addView(Button)
+
+            }
+
+        }catch (e:Exception){
+            Timber.i(e)
+        }
     }
 
 

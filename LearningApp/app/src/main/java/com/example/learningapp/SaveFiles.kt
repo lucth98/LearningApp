@@ -58,5 +58,16 @@ class SaveFiles(var context: Context) {
             file.delete()
         }
     }
+    public fun deleteFile(name:String){
+        for(file in context.getFilesDir().listFiles())
+        {
+            if(file.name.compareTo(name)==0){
+                file.delete()
+            }
+
+
+        }
+
+    }
 
 }
