@@ -38,8 +38,10 @@ class FragmentMenue : Fragment() {
     private fun generateMenue() {
 
         var saveFiles = SaveFiles(this.requireContext())
+        var extenal=Extenal(this.requireContext())
        // saveFiles.deleteFilesinInternalStorage()   //löscht die files wieder
         saveFiles.moveXMLtoInternalStorage()
+        extenal.saveExternalFiles()
 
 
         var filenameslist = saveFiles.getFilnamesInternalStorage()

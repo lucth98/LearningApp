@@ -38,7 +38,7 @@ class SaveFiles(var context: Context) {
             Timber.i(e)
         }
     }
-    private fun checkifFileexist(filname:String):Boolean{
+    public fun checkifFileexist(filname:String):Boolean{
         for(filenameInternal in this.getFilnamesInternalStorage()){
             if (filname.compareTo(filenameInternal.toString())==0)
             {

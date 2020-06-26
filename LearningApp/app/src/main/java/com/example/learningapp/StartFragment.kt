@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.learningapp.databinding.FragmentStartBinding
+import timber.log.Timber
 
 
 /**
@@ -32,8 +33,18 @@ class StartFragment : Fragment() {
 
         binding.StartButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_fragmentMenue2))
         binding.OptionButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_optionsFragment))
-
+      //  ex()
         return binding.root//inflater.inflate(R.layout.fragment_start, container, false)
+    }
+    private fun ex()
+    {
+        try {
+            var extenal=Extenal(this.requireContext())
+            extenal.generateFolder()
+
+        }catch (e:Exception){
+            Timber.i(e)
+        }
     }
 
 

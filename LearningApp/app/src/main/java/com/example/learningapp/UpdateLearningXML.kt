@@ -4,6 +4,7 @@ import android.content.Context
 import org.w3c.dom.Document
 import timber.log.Timber
 import java.io.File
+import java.io.FileInputStream
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.OutputKeys
 import javax.xml.transform.Transformer
@@ -34,6 +35,21 @@ class UpdateLearningXML(var context: Context) {
 
 
     }
+    private fun generateDocfromEx(path: String): Document {
+        var factory = DocumentBuilderFactory.newInstance()
+        var builder = factory.newDocumentBuilder()
+        Timber.i("path= " + path)
+        var fileInputStream=FileInputStream(context.getExternalFilesDir(null)!!.absolutePath+"/"+path)
+        return             builder.parse(fileInputStream)
+
+
+
+    }
+    public fun saveInInternalStoragefromExtrnal(path: String, name: String) {
+        var doc = this.generateDocfromEx(path)//&this.generateDoc_Assets(path)
+        this.transform(doc, name)
+    }
+
 
     public fun saveInInternalStorage(path: String, name: String) {
         var doc = this.generateDoc(path,true)//&this.generateDoc_Assets(path)
@@ -107,6 +123,7 @@ class UpdateLearningXML(var context: Context) {
         for (string in context.fileList()) {
             Timber.i("Test Filename =" + string)
         }
+
     }
 
 
