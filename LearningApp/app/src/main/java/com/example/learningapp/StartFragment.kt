@@ -8,44 +8,23 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.learningapp.databinding.FragmentStartBinding
-import timber.log.Timber
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [StartFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class StartFragment : Fragment() {
-
+    //Data Binding
     private lateinit var binding: FragmentStartBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
 
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
         binding.StartButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_fragmentMenue2))
         binding.OptionButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_optionsFragment))
-      //  ex()
-        return binding.root//inflater.inflate(R.layout.fragment_start, container, false)
+
+        return binding.root
     }
-    private fun ex()
-    {
-        try {
-            var extenal=Extenal(this.requireContext())
-            extenal.generateFolder()
-
-        }catch (e:Exception){
-            Timber.i(e)
-        }
-    }
-
-
 }

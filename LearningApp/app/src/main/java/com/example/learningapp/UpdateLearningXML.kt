@@ -13,16 +13,14 @@ import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
 class UpdateLearningXML(var context: Context) {
-    private val atributeNameIndexQuestion: Int = 0
-    private val atributefinishedIndexQuestion: Int = 1
-    private val atributeNameIndexLesson: Int = 0
-    private val atributefinishedIndexLesson: Int = 1
+
+    private val atributeNameIndex: Int = 0
+    private val atributefinishedIndex: Int = 1
     private val atributeTime: Int = 2
     public val questiontag = "question"
     public val lessonntag = "lesson"
 
-
-
+    //erstellt ein Document from assets/internen Speicher
     private fun generateDoc(path: String, fromAssets: Boolean): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
@@ -32,32 +30,32 @@ class UpdateLearningXML(var context: Context) {
         } else {
             builder.parse(context.openFileInput(path))
         }
-
-
     }
+
+    //erstellt ein Document from Externen Speicher
     private fun generateDocfromEx(path: String): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
         Timber.i("path= " + path)
-        var fileInputStream=FileInputStream(context.getExternalFilesDir(null)!!.absolutePath+"/"+path)
-        return             builder.parse(fileInputStream)
-
-
-
+        var fileInputStream = FileInputStream(context.getExternalFilesDir(null)!!.absolutePath + "/" + path)
+        return builder.parse(fileInputStream)
     }
+
+    //kopiert ein File vom Externen zum Internen Speicher
     public fun saveInInternalStoragefromExtrnal(path: String, name: String) {
         var doc = this.generateDocfromEx(path)//&this.generateDoc_Assets(path)
         this.transform(doc, name)
     }
 
-
+    //kopiert ein File vom assets zum Internen Speicher
     public fun saveInInternalStorage(path: String, name: String) {
-        var doc = this.generateDoc(path,true)//&this.generateDoc_Assets(path)
+        var doc = this.generateDoc(path, true)//&this.generateDoc_Assets(path)
         this.transform(doc, name)
     }
 
+    //ändert die Zeit einem Lesson File
     public fun changeTimeLesson(path: String, LearningElement: Lesson, setTime: String) {
-        var doc = this.generateDoc(path,false)//this.generateDoc_InternalStorage(path)
+        var doc = this.generateDoc(path, false)//this.generateDoc_InternalStorage(path)
 
         var nodeList = doc.getElementsByTagName(lessonntag)
 
@@ -65,7 +63,7 @@ class UpdateLearningXML(var context: Context) {
             var node = nodeList.item(i)
             var atributes = node.attributes
 
-            if (atributes.item(atributeNameIndexLesson).nodeValue.compareTo(LearningElement.getName()) == 0) {
+            if (atributes.item(atributeNameIndex).nodeValue.compareTo(LearningElement.getName()) == 0) {
                 Timber.i("Wert = " + atributes.item(atributeTime).nodeValue)
                 atributes.item(atributeTime).nodeValue = setTime
                 Timber.i("Wert = " + atributes.item(atributeTime).nodeValue)
@@ -74,9 +72,9 @@ class UpdateLearningXML(var context: Context) {
         this.transform(doc, path)
     }
 
-
+    //setz das Finsch in einen learning elemnt File
     public fun changeLearnigElement(path: String, LearningElement: LearningElement, setFinish: Boolean, tag: String) {
-        var doc = this.generateDoc(path,false)//this.generateDoc_InternalStorage(path)
+        var doc = this.generateDoc(path, false)//this.generateDoc_InternalStorage(path)
 
         var nodeList = doc.getElementsByTagName(tag)
 
@@ -84,16 +82,16 @@ class UpdateLearningXML(var context: Context) {
             var node = nodeList.item(i)
             var atributes = node.attributes
 
-            if (atributes.item(atributeNameIndexLesson).nodeValue.compareTo(LearningElement.getName()) == 0) {
-                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
-                atributes.item(atributefinishedIndexLesson).nodeValue = setFinish.toString()
-                Timber.i("Wert = " + atributes.item(atributefinishedIndexLesson).nodeValue)
+            if (atributes.item(atributeNameIndex).nodeValue.compareTo(LearningElement.getName()) == 0) {
+                Timber.i("Wert = " + atributes.item(atributefinishedIndex).nodeValue)
+                atributes.item(atributefinishedIndex).nodeValue = setFinish.toString()
+                Timber.i("Wert = " + atributes.item(atributefinishedIndex).nodeValue)
             }
         }
         this.transform(doc, path)
     }
 
-
+    //speichert das File
     private fun transform(doc: Document, name: String) {
         try {
 

@@ -19,7 +19,7 @@ import timber.log.Timber
 
 
 class FragmentMenue : Fragment() {
-    // private lateinit var binding: FragmentStartBinding
+    //Data Binding
     private lateinit var binding: FragmentMenueBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,12 +34,11 @@ class FragmentMenue : Fragment() {
         return binding.root
     }
 
-
+    //speichert die Files in Internal und generiert einen Knopf für Files
     private fun generateMenue() {
 
         var saveFiles = SaveFiles(this.requireContext())
-        var extenal=Extenal(this.requireContext())
-       // saveFiles.deleteFilesinInternalStorage()   //löscht die files wieder
+        var extenal = Extenal(this.requireContext())
         saveFiles.moveXMLtoInternalStorage()
         extenal.saveExternalFiles()
 
@@ -48,7 +47,7 @@ class FragmentMenue : Fragment() {
         var subjectlist: MutableList<Subject> = mutableListOf()
         try {
             for (name in filenameslist) {
-                var path: String = name.toString()// "LearnigFiles/" + name.toString()
+                var path: String = name.toString()
                 var readLearningXMl: ReadLearningXMl = ReadLearningXMl(this.requireContext(), path)
 
                 var subject = readLearningXMl.read()
@@ -68,22 +67,21 @@ class FragmentMenue : Fragment() {
         }
     }
 
+    //erstellt das  Popup Menue
     private fun genPopupMenue(view: View, subject: Subject) {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList: MutableList<String> = mutableListOf()
         for (i in 0 until subject.lessons.size) {
-            var menuinput:String=subject.lessons[i].getName()
-            if(subject.lessons[i].getfinished())
-            {
-                menuinput+=" Wiederholung"
+            var menuinput: String = subject.lessons[i].getName()
+            if (subject.lessons[i].getfinished()) {
+                menuinput += " Wiederholung"
             }
             popupMenu.menu.add(1, i, i, menuinput)
 
-            if(subject.lessons[i].getfinished())
-            {
-                var menuitem=popupMenu.menu.getItem(i)
+            if (subject.lessons[i].getfinished()) {
+                var menuitem = popupMenu.menu.getItem(i)
                 var spannableString: SpannableString = SpannableString(menuinput)
-                spannableString.setSpan(ForegroundColorSpan(Color.GREEN),0,spannableString.length,0)
+                spannableString.setSpan(ForegroundColorSpan(Color.GREEN), 0, spannableString.length, 0)
                 menuitem.setTitle(spannableString)
             }
             itemList.add(subject.lessons[i].getName())
@@ -95,21 +93,18 @@ class FragmentMenue : Fragment() {
     }
 
 
-
-
+    //wird dem klicken des Menues aufgerufen
     @Override
     private fun onMenuItemClick(item: MenuItem, itemList: MutableList<String>, subject: Subject): Boolean {
 
         if (item.itemId < itemList.size) {
             binding.textViewTest.text = itemList[item.itemId]
 
-
             for (less in subject.lessons) {
                 if (less.getName() == itemList[item.itemId]) {
-                    less.path=subject.path
-                    //Timber.i("path= "+less.path)
+                    less.path = subject.path
 
-                    var action = FragmentMenueDirections.actionFragmentMenueToFragmentInfo(less)//FragmentMenueDirections.actionFragmentMenueToFragmentInfo(serilLearningElement)
+                    var action = FragmentMenueDirections.actionFragmentMenueToFragmentInfo(less)
                     findNavController().navigate(action)
                 }
             }

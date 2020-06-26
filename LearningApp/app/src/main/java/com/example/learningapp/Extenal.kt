@@ -7,38 +7,24 @@ import java.io.File
 
 class Extenal(var context: Context) {
 
-public fun generateFolder(){
-   // var edir= File(context.getExternalFilesDir(null)!!.toURI().toString()+"/documents/LearningFiles")
-    //edir.mkdirs();
-
-    Timber.i( Environment.getDataDirectory().absolutePath)
-    Timber.i( context.getExternalFilesDir(null)!!.absolutePath)
-   // getFilenames()
-
-}
-
-
-    public fun saveExternalFiles()
-    {
+    //kopiert alle neuen Files von Externen Speicher in den Internen Speicher
+    public fun saveExternalFiles() {
         try {
-
-
-            var saveFiles=SaveFiles(context)
-            var updateLearningXML=UpdateLearningXML(context)
-            for(file in this.getFilenames()) {
-                if (!saveFiles.checkifFileexist(file)){
-                    updateLearningXML.saveInInternalStoragefromExtrnal(file,file)
+            var saveFiles = SaveFiles(context)
+            var updateLearningXML = UpdateLearningXML(context)
+            for (file in this.getFilenames()) {
+                if (!saveFiles.checkifFileexist(file)) {
+                    updateLearningXML.saveInInternalStoragefromExtrnal(file, file)
                 }
             }
 
-        }catch(e:Exception){
+        } catch (e: Exception) {
             Timber.i(e)
         }
     }
-
+    //gibt alle Filenamen im External Speicher zurück
     public fun getFilenames(): MutableList<String> {
-        var result= mutableListOf<String>()
-
+        var result = mutableListOf<String>()
 
         val path = context.getExternalFilesDir(null)!!.absolutePath
         val yourDir = File(path)
@@ -48,17 +34,12 @@ public fun generateFolder(){
 
             Timber.i(f.toString())
 
-                var name = f.name
-                Timber.i(name)
-                result.add(name)
-
-
+            var name = f.name
+            Timber.i(name)
+            result.add(name)
         }
         return result
     }
-
-
-
 
 
 }

@@ -27,10 +27,13 @@ import java.util.concurrent.TimeUnit
  * create an instance of this fragment.
  */
 class Fragment_info : Fragment() {
-
+    //Data Binding
     private lateinit var binding: FragmentInfoBinding
+
+    //lesson
     private lateinit var lesson: Lesson
 
+    //path der lesson
     private lateinit var path: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,26 +69,20 @@ class Fragment_info : Fragment() {
         return binding.root
     }
 
+    //  ändert das UI je nachdem ob Zeit abgelaufen/nicht abgelaufen ist oder nicht gesetzt ist
     private fun checkDate() {
 
         var string = lesson.getTime()
-        if (lesson.gethasTime()){//(!(string.compareTo("null") == 0) && !(string.compareTo("") == 0)) {
+        if (lesson.gethasTime()) {
             try {
 
-               /* Timber.i("string Date =" + string)
 
+                if (lesson.hasTimerunout()) {
 
-                val format = SimpleDateFormat("dd-MM-yyyy")
-                var endtime: Date = format.parse(string)
-                var currrentTime: Date = Calendar.getInstance().time
-
-                Timber.i("tag jetzt=" + currrentTime + "tag ende=" + endtime)*/
-                if (lesson.hasTimerunout()){//currrentTime.before(endtime)) {
-                  /*  var diff = endtime.time - currrentTime.time*/
-                    var daydifference =lesson.getTimeDifference() //TimeUnit.MILLISECONDS.toDays(diff)
+                    var daydifference = lesson.getTimeDifference()
 
                     binding.warnigTextView.visibility = View.VISIBLE
-                    binding.warnigTextView.text = "nach " + daydifference.toString() + " Tage verfügbar"//endtime.toString()"
+                    binding.warnigTextView.text = "nach " + daydifference.toString() + " Tage verfügbar"
                     binding.warnigTextView.setBackgroundColor(Color.GREEN)
 
                 } else {
@@ -96,7 +93,7 @@ class Fragment_info : Fragment() {
                     binding.textViewHeading.visibility = View.GONE
 
                     binding.warnigTextView.visibility = View.VISIBLE
-                    binding.warnigTextView.text = "Zeit abgelaufen"//endtime.toString()"
+                    binding.warnigTextView.text = "Zeit abgelaufen"
                     binding.warnigTextView.setBackgroundColor(Color.RED)
 
                 }
@@ -110,20 +107,20 @@ class Fragment_info : Fragment() {
         }
     }
 
-
+    //Methode für den Zeitsetzen Button
     private fun todateBicker() {
         var action = Fragment_infoDirections.actionFragmentInfoToDatePickerFragment2(lesson)
         findNavController().navigate(action)
     }
 
-
+    //Methode für den Menue Button
     private fun generateMenue() {
-
         binding.buttonQuestions.setOnClickListener {
             genPopupMenue(it)
         }
     }
 
+    //erstellt das Popup Menue
     private fun genPopupMenue(view: View) {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList: MutableList<String> = mutableListOf()
@@ -151,6 +148,7 @@ class Fragment_info : Fragment() {
         popupMenu.show()
     }
 
+    //erstellt das Bild wenn es in der lesson definiert ist
     private fun generateImage() {
         var imagesrc: String = lesson.getImage()
         if (!(imagesrc.compareTo("null") == 0) && !(imagesrc.compareTo("") == 0)) {
@@ -165,10 +163,9 @@ class Fragment_info : Fragment() {
                 Timber.i(e)
             }
         }
-
-
     }
 
+    //setzt das File der Lesson auf fertig
     private fun changestatus() {
         if (this.checkiffinshed()) {
             var updateLearningXML: UpdateLearningXML = UpdateLearningXML(this.requireContext())
@@ -176,7 +173,7 @@ class Fragment_info : Fragment() {
         }
     }
 
-
+    //überprüft ob die Lesson erledigt wurde
     private fun checkiffinshed(): Boolean {
         for (question in this.lesson.questions) {
             if (!question.getfinished()) {
@@ -186,6 +183,8 @@ class Fragment_info : Fragment() {
         return true
     }
 
+
+    //wird dem klicken des Menues aufgerufen
     @Override
     private fun onMenuItemClick(item: MenuItem, itemList: MutableList<String>): Boolean {
 
@@ -200,7 +199,6 @@ class Fragment_info : Fragment() {
             return true
         }
         return false
-
     }
 
 

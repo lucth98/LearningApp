@@ -14,6 +14,7 @@ class Lesson() : LearningElement() {
             field = value
         }
 
+    //gibt den Namen des Bildes der Lesson zurück
     public fun getImage(): String {
         var value: String = "null"
         for (atribut in this.atributList) {
@@ -24,6 +25,7 @@ class Lesson() : LearningElement() {
         return value
     }
 
+    //gibt die End Zeit zurück
     public fun getTime(): String {
         var value: String = "null"
         for (atribut in this.atributList) {
@@ -33,27 +35,33 @@ class Lesson() : LearningElement() {
         }
         return value
     }
-    public fun gethasTime():Boolean{
+
+    //gibt zurück ob die Zeit abgelaufen ist
+    public fun gethasTime(): Boolean {
         var string = this.getTime()
         return string.compareTo("null") != 0 && string.compareTo("") != 0
     }
 
-    public fun getTimeDifference():Long {
-        var endtime=this.getEndtime()
+    //gibt die Zeitdiffernz zwichen jetzt Zeit und End Zeit zurück
+    public fun getTimeDifference(): Long {
+        var endtime = this.getEndtime()
         var currrentTime: Date = Calendar.getInstance().time
         var diff = endtime.time - currrentTime.time
         return TimeUnit.MILLISECONDS.toDays(diff)
     }
-    private fun getEndtime():Date{
+
+    //formatiert die Endzeit zu Date
+    private fun getEndtime(): Date {
         var string = this.getTime()
         val format = SimpleDateFormat("dd-MM-yyyy")
-       return format.parse(string)
+        return format.parse(string)
     }
 
+    //prüft ob die Zeit abgelaufen ist
     public fun hasTimerunout(): Boolean {
         var result: Boolean = false
         try {
-            var endtime=this.getEndtime()
+            var endtime = this.getEndtime()
             var currrentTime: Date = Calendar.getInstance().time
             Timber.i("tag jetzt=" + currrentTime + "tag ende=" + endtime)
 
@@ -62,7 +70,6 @@ class Lesson() : LearningElement() {
         } catch (e: Exception) {
             Timber.i(e)
         }
-
         return result
     }
 

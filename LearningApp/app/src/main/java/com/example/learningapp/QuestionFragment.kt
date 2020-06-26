@@ -2,15 +2,12 @@ package com.example.learningapp
 
 import android.content.Context
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.RadioButton
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -18,42 +15,34 @@ import com.example.learningapp.databinding.FragmentQuestionBinding
 import timber.log.Timber
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [QuestionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class QuestionFragment : Fragment() {
+    //Data Binding
     private lateinit var binding: FragmentQuestionBinding
-    private lateinit var question: Question
-    private lateinit var path: String
 
+    //Questoin
+    private lateinit var question: Question
+
+    //phat des Files der Question
+    private lateinit var path: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
-
+    //Fügt für jede Antwort in der Frage einen Antwort Radio Button hinzu
     private fun addButtons(context: Context) {
         var radioButton: RadioButton
         Timber.i("abbButtons_Beginn")
         Timber.i(question.text)
-
         binding.textViewQuestionText.text = question.text
 
         for (i in 0..question.answer.size - 1) {
             radioButton = RadioButton(context)
             radioButton.text = question.answer[i].text
-
             radioButton.id = i
 
             Timber.i("Antwort NR= " + i + " text= " + question.answer[i].text)
-
             binding.RadioGroupQuestions.addView(radioButton)
-
-
         }
     }
 
@@ -62,42 +51,38 @@ class QuestionFragment : Fragment() {
         Timber.i("onCreate_Beginn")
 
         try {
-
             var element = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement }
             path = arguments?.let { QuestionFragmentArgs.fromBundle(it).lernElement.path }.toString()
-            // Timber.i("path ="+path)
+
             if (element is Question) {
                 question = element
-
             } else {
                 Timber.i("Keine Frage")
             }
 
             this.context?.let { addButtons(it) }
-
-
             binding.buttonFinish.setOnClickListener {
                 finshButtonAction()
             }
             binding.resetButton.setOnClickListener { reset() }
             binding.menueButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_questionFragment_to_startFragment))
             binding.backToLessonButton.setOnClickListener { backToLesson() }
-
         } catch (e: Exception) {
             Timber.i("Error")
             Timber.i(e)
-
         }
         Timber.i("onCreate_Ende")
-        // Inflate the layout for this fragment
+
         return binding.root
     }
 
+    //Methode für den Zurück zur lesonn Button
     private fun backToLesson() {
         val navController = this.findNavController()
         navController.navigateUp()
     }
 
+    //editier das UI je nach der richtigkeit der Antwort
     private fun finshButtonAction() {
         try {
 
@@ -109,30 +94,23 @@ class QuestionFragment : Fragment() {
                 if (answerisRight) {
                     binding.lilLayout.setBackgroundColor(Color.rgb(50, 205, 50))
                     var updateLearningXML = UpdateLearningXML(this.requireContext())
-                    //updateLearningXML.changeQuestion(this.path, this.question, true)
                     updateLearningXML.changeLearnigElement(this.path, this.question, true, updateLearningXML.questiontag)
                     binding.menueButton.visibility = View.VISIBLE
                     binding.backToLessonButton.visibility = View.VISIBLE
                     binding.buttonFinish.visibility = View.GONE
-
-
                 } else {
                     binding.lilLayout.setBackgroundColor(Color.rgb(255, 99, 7))
-
                     binding.menueButton.visibility = View.VISIBLE
                     binding.resetButton.visibility = View.VISIBLE
                     binding.buttonFinish.visibility = View.GONE
-
-
                 }
             }
-
         } catch (e: Exception) {
             Timber.i(e)
         }
     }
 
-
+    //setzt das UI zurück
     private fun reset() {
         binding.buttonFinish.visibility = View.VISIBLE
         binding.RadioGroupQuestions.visibility = View.VISIBLE
@@ -140,10 +118,9 @@ class QuestionFragment : Fragment() {
         binding.menueButton.visibility = View.GONE
         binding.resetButton.visibility = View.GONE
         binding.lilLayout.setBackgroundColor(Color.WHITE)
-
-
     }
 
+    //überprüft die Antwort
     private fun checkAnswer(): Boolean? {
         var index: Int = binding.RadioGroupQuestions.checkedRadioButtonId
         var value: Boolean? = null
@@ -161,7 +138,6 @@ class QuestionFragment : Fragment() {
                 }
             }
         }
-
         return value
     }
 }

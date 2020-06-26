@@ -11,25 +11,16 @@ import androidx.navigation.Navigation
 import com.example.learningapp.databinding.FragmentOptionsBinding
 import timber.log.Timber
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
-/**
- * A simple [Fragment] subclass.
- * Use the [OptionsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class OptionsFragment : Fragment() {
+    //Data Binding
     private lateinit var binding: FragmentOptionsBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-
+    //löscht alle Files im Internen Speicher
     private fun restFiles() {
         try {
             var saveFiles: SaveFiles = SaveFiles(this.requireContext())
@@ -38,6 +29,7 @@ class OptionsFragment : Fragment() {
             Timber.i(e)
         }
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_options, container, false)
@@ -52,11 +44,13 @@ class OptionsFragment : Fragment() {
         return binding.root
     }
 
+    //löscht ein File im Internen Speicher
     private fun delete(name: String) {
         var saveFiles = SaveFiles(this.requireContext())
         saveFiles.deleteFile(name)
     }
 
+    //erstellt für jedes File im Internen Speicher einen Reset Button
     private fun generateResetButtons() {
         try {
             var saveFiles = SaveFiles(this.requireContext())

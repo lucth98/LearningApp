@@ -9,19 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import com.example.learningapp.databinding.FragmentDatePickerBinding
 import timber.log.Timber
-import java.util.*
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DatePickerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
+
 class DatePickerFragment : Fragment() {
-    private var year: Int = 0
-    private var month: Int = 0
-    private var dayOfMonth: Int = 0
+    //data Binding
     private lateinit var binding: FragmentDatePickerBinding
+    // lesson in der das Datum gespeichert wird
     private lateinit var lesson: Lesson
 
 
@@ -29,6 +24,7 @@ class DatePickerFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -47,6 +43,8 @@ class DatePickerFragment : Fragment() {
         }
         return binding.root
     }
+
+    //speichert und geht zurück zum Menue
     private fun back(){
         save()
         var action = DatePickerFragmentDirections.actionDatePickerFragment2ToFragmentMenue()
@@ -54,18 +52,14 @@ class DatePickerFragment : Fragment() {
 
     }
 
-
+    //speichert das Datum in dem File der Lesson
     private fun save() {
-
         try {
 
             Timber.i(binding.datePicker.year.toString())
             Timber.i(binding.datePicker.month.toString())
             Timber.i(binding.datePicker.dayOfMonth.toString())
 
-           /* var calendar = Calendar.getInstance()
-            calendar.set(binding.datePicker.year, binding.datePicker.month, binding.datePicker.dayOfMonth)
-            var date: Date = calendar.time*/
 
             var updateLearningXML=UpdateLearningXML(this.requireContext())
             var month=binding.datePicker.month
