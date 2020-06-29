@@ -54,7 +54,7 @@ class UpdateLearningXML(var context: Context) {
     }
 
     //ändert die Zeit einem Lesson File
-    public fun changeTimeLesson(path: String, LearningElement: Lesson, setTime: String) {
+    public fun changeTimeLesson(path: String, learningElement: Lesson, setTime: String) {
         var doc = this.generateDoc(path, false)//this.generateDoc_InternalStorage(path)
 
         var nodeList = doc.getElementsByTagName(lessonntag)
@@ -63,7 +63,7 @@ class UpdateLearningXML(var context: Context) {
             var node = nodeList.item(i)
             var atributes = node.attributes
 
-            if (atributes.item(atributeNameIndex).nodeValue.compareTo(LearningElement.getName()) == 0) {
+            if (atributes.item(atributeNameIndex).nodeValue.compareTo(learningElement.getName()) == 0) {
                 Timber.i("Wert = " + atributes.item(atributeTime).nodeValue)
                 atributes.item(atributeTime).nodeValue = setTime
                 Timber.i("Wert = " + atributes.item(atributeTime).nodeValue)
@@ -73,7 +73,7 @@ class UpdateLearningXML(var context: Context) {
     }
 
     //setz das Finsch in einen learning elemnt File
-    public fun changeLearnigElement(path: String, LearningElement: LearningElement, setFinish: Boolean, tag: String) {
+    public fun changeLearnigElement(path: String, learningElement: LearningElement, setFinish: Boolean, tag: String) {
         var doc = this.generateDoc(path, false)//this.generateDoc_InternalStorage(path)
 
         var nodeList = doc.getElementsByTagName(tag)
@@ -82,7 +82,7 @@ class UpdateLearningXML(var context: Context) {
             var node = nodeList.item(i)
             var atributes = node.attributes
 
-            if (atributes.item(atributeNameIndex).nodeValue.compareTo(LearningElement.getName()) == 0) {
+            if (atributes.item(atributeNameIndex).nodeValue.compareTo(learningElement.getName()) == 0) {
                 Timber.i("Wert = " + atributes.item(atributefinishedIndex).nodeValue)
                 atributes.item(atributefinishedIndex).nodeValue = setFinish.toString()
                 Timber.i("Wert = " + atributes.item(atributefinishedIndex).nodeValue)

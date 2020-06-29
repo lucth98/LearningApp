@@ -25,6 +25,17 @@ abstract class LearningElement : Serializable {
         return result
     }
 
+    //setzt finished
+    fun setfinished(finished:Boolean) {
+        for (atr in atributList) {
+            if (atr.name.compareTo("finished") == 0) {
+                Timber.i("fished= " + atr.text)
+                atr.text=finished.toString()
+                Timber.i("fished= " + atr.text)
+            }
+        }
+
+    }
     //gibt den Namen des Elements zurückt
     fun getName(): String {
         var result = "-1"

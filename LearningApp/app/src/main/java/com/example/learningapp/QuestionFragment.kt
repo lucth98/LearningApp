@@ -95,6 +95,7 @@ class QuestionFragment : Fragment() {
                     binding.lilLayout.setBackgroundColor(Color.rgb(50, 205, 50))
                     var updateLearningXML = UpdateLearningXML(this.requireContext())
                     updateLearningXML.changeLearnigElement(this.path, this.question, true, updateLearningXML.questiontag)
+                    question.setfinished(true)
                     binding.menueButton.visibility = View.VISIBLE
                     binding.backToLessonButton.visibility = View.VISIBLE
                     binding.buttonFinish.visibility = View.GONE

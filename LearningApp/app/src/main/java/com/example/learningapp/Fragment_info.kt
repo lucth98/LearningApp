@@ -170,6 +170,7 @@ class Fragment_info : Fragment() {
         if (this.checkiffinshed()) {
             var updateLearningXML: UpdateLearningXML = UpdateLearningXML(this.requireContext())
             updateLearningXML.changeLearnigElement(path, this.lesson, true, updateLearningXML.lessonntag)
+            this.lesson.setfinished(true)
         }
     }
 
