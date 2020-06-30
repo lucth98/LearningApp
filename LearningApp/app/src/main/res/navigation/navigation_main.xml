@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/startFragment"
         android:name="com.example.learningapp.StartFragment"
-        android:label="fragment_start"
-        tools:layout="@layout/fragment_start" >
+        android:label="Start"
+        tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_fragmentMenue2"
             app:destination="@id/fragmentMenue"
@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.example.learningapp.QuestionFragment"
-        android:label="QuestionFragment" >
+        android:label="Question">
         <action
             android:id="@+id/action_questionFragment_to_startFragment"
             app:destination="@id/startFragment" />
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/fragmentMenue"
         android:name="com.example.learningapp.FragmentMenue"
-        android:label="FragmentMenue" >
+        android:label="Menue">
         <action
             android:id="@+id/action_fragmentMenue_to_fragment_info"
             app:destination="@id/fragment_info"
@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/fragment_info"
         android:name="com.example.learningapp.Fragment_info"
-        android:label="Fragment_info" >
+        android:label="Info">
         <action
             android:id="@+id/action_fragment_info_to_questionFragment"
             app:destination="@id/questionFragment"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/optionsFragment"
         android:name="com.example.learningapp.OptionsFragment"
-        android:label="OptionsFragment" >
+        android:label="Options">
         <action
             android:id="@+id/action_optionsFragment_to_startFragment"
             app:destination="@id/startFragment" />
@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/datePickerFragment2"
         android:name="com.example.learningapp.DatePickerFragment"
-        android:label="DatePickerFragment" >
+        android:label="Date Picker">
         <argument
             android:name="lernElement"
             app:argType="com.example.learningapp.LearningElement" />

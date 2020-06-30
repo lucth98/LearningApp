@@ -94,6 +94,7 @@ class QuestionFragment : Fragment() {
             var answerisRight: Boolean? = checkAnswer()
             if (answerisRight != null) {
                 makeButtonGone()
+                binding.buttonClear.visibility=View.GONE
                 binding.RadioGroupQuestions.visibility = View.GONE
                 binding.textViewResult.visibility = View.VISIBLE
                 if (answerisRight) {
@@ -161,6 +162,7 @@ class QuestionFragment : Fragment() {
         binding.menueButton.visibility = View.GONE
         binding.resetButton.visibility = View.GONE
         binding.lilLayout.setBackgroundColor(Color.WHITE)
+        binding.buttonClear.visibility=View.VISIBLE
     }
 
     //überprüft die Antwort
