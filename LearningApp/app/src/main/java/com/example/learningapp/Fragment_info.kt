@@ -86,15 +86,25 @@ class Fragment_info : Fragment() {
                     binding.warnigTextView.setBackgroundColor(Color.GREEN)
 
                 } else {
-                    binding.imageViewDescribtion.visibility = View.GONE
-                    binding.buttonQuestions.visibility = View.GONE
-                    binding.imageViewDescribtion.visibility = View.GONE
-                    binding.textViewInfo.visibility = View.GONE
-                    binding.textViewHeading.visibility = View.GONE
+                    if (lesson.getfinished()) {
 
-                    binding.warnigTextView.visibility = View.VISIBLE
-                    binding.warnigTextView.text = "Zeit abgelaufen"
-                    binding.warnigTextView.setBackgroundColor(Color.RED)
+                        binding.warnigTextView.visibility = View.VISIBLE
+                        binding.warnigTextView.text = "Zeit abgelaufen \n Einheit wurde vor Ende beendet"
+                        binding.warnigTextView.setBackgroundColor(Color.GREEN)
+
+                    } else {
+
+
+                        binding.imageViewDescribtion.visibility = View.GONE
+                        binding.buttonQuestions.visibility = View.GONE
+                        binding.imageViewDescribtion.visibility = View.GONE
+                        binding.textViewInfo.visibility = View.GONE
+                        binding.textViewHeading.visibility = View.GONE
+
+                        binding.warnigTextView.visibility = View.VISIBLE
+                        binding.warnigTextView.text = "Zeit abgelaufen \n Einheit wurde vor Ende nicht beendet"
+                        binding.warnigTextView.setBackgroundColor(Color.RED)
+                    }
 
                 }
 

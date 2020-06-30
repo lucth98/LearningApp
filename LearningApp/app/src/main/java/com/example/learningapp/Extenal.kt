@@ -1,7 +1,9 @@
 package com.example.learningapp
 
 import android.content.Context
+import android.os.Build
 import android.os.Environment
+import androidx.annotation.RequiresApi
 import timber.log.Timber
 import java.io.File
 
@@ -22,6 +24,17 @@ class Extenal(var context: Context) {
             Timber.i(e)
         }
     }
+
+/*
+    public fun generateImageFolder() {
+        Timber.i("pathrr "+context.dataDir!!.absolutePath)
+        var folder=File(context.filesDir.absolutePath+"/Images")
+        if(!folder.exists()){
+            folder.mkdir()
+            Timber.i("fertig")
+        }
+    }*/
+
     //gibt alle Filenamen im External Speicher zurück
     public fun getFilenames(): MutableList<String> {
         var result = mutableListOf<String>()
