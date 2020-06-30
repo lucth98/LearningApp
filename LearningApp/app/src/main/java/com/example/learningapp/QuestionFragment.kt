@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -32,6 +33,7 @@ class QuestionFragment : Fragment() {
     //Fügt für jede Antwort in der Frage einen Antwort Radio Button hinzu
     private fun addButtons(context: Context) {
         var radioButton: RadioButton
+
         Timber.i("abbButtons_Beginn")
         Timber.i(question.text)
         binding.textViewQuestionText.text = question.text
@@ -42,7 +44,8 @@ class QuestionFragment : Fragment() {
             radioButton.id = i
 
             Timber.i("Antwort NR= " + i + " text= " + question.answer[i].text)
-            binding.RadioGroupQuestions.addView(radioButton)
+            // binding.RadioGroupQuestions.addView(radioButton)
+            binding.QuestionsLayout.addView(radioButton)
         }
     }
 
@@ -67,6 +70,7 @@ class QuestionFragment : Fragment() {
             binding.resetButton.setOnClickListener { reset() }
             binding.menueButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_questionFragment_to_startFragment))
             binding.backToLessonButton.setOnClickListener { backToLesson() }
+            binding.buttonClear.setOnClickListener { clear() }
         } catch (e: Exception) {
             Timber.i("Error")
             Timber.i(e)
@@ -89,6 +93,7 @@ class QuestionFragment : Fragment() {
             binding.textViewResult.text = checkAnswer().toString()
             var answerisRight: Boolean? = checkAnswer()
             if (answerisRight != null) {
+                makeButtonGone()
                 binding.RadioGroupQuestions.visibility = View.GONE
                 binding.textViewResult.visibility = View.VISIBLE
                 if (answerisRight) {
@@ -111,8 +116,45 @@ class QuestionFragment : Fragment() {
         }
     }
 
+    private fun clear(){
+        var layout = binding.QuestionsLayout
+
+        for (i in 0..layout.childCount) {
+            var view = layout.getChildAt(i)
+            if (view is RadioButton) {
+                view.isChecked=false
+            }
+        }
+
+    }
+
+    private fun makeButtonGone(){
+        var layout = binding.QuestionsLayout
+
+        for (i in 0..layout.childCount) {
+            var view = layout.getChildAt(i)
+            if (view is RadioButton) {
+                view.visibility=View.GONE
+            }
+        }
+
+    }
+    private fun makeButtonVissible(){
+        var layout = binding.QuestionsLayout
+
+        for (i in 0..layout.childCount) {
+            var view = layout.getChildAt(i)
+            if (view is RadioButton) {
+                view.visibility=View.VISIBLE
+            }
+        }
+
+    }
+
     //setzt das UI zurück
     private fun reset() {
+        clear()
+        makeButtonVissible()
         binding.buttonFinish.visibility = View.VISIBLE
         binding.RadioGroupQuestions.visibility = View.VISIBLE
         binding.textViewResult.visibility = View.GONE
@@ -123,22 +165,57 @@ class QuestionFragment : Fragment() {
 
     //überprüft die Antwort
     private fun checkAnswer(): Boolean? {
-        var index: Int = binding.RadioGroupQuestions.checkedRadioButtonId
-        var value: Boolean? = null
+        /*   var index: Int = binding.RadioGroupQuestions.checkedRadioButtonId
+           var value: Boolean? = null
 
-        if (index == -1) {
-            value = null
-        } else {
+           if (index == -1) {
+               value = null
+           } else {
+               for (i in 0 until question.answer.size) {
+                   for (atribut in question.answer[i].atributList) {
+
+                       if (atribut.name.compareTo("isCorrect") == 0 && atribut.text.compareTo("true") == 0) {
+                           value = index == i
+                           break
+                       }
+                   }
+               }
+           }
+           return value*/
+        var layout = binding.QuestionsLayout
+        if (this.chekifanswerd()) {
             for (i in 0 until question.answer.size) {
-                for (atribut in question.answer[i].atributList) {
-
-                    if (atribut.name.compareTo("isCorrect") == 0 && atribut.text.compareTo("true") == 0) {
-                        value = index == i
-                        break
-                    }
+                var view = layout.getChildAt(i)
+                if (view is RadioButton) {
+                        for (atribut in question.answer[i].atributList) {
+                            if (atribut.name.compareTo("isCorrect") == 0 ) {
+                               var isRight:Boolean = atribut.text.toBoolean()
+                                if((view.isChecked&&!isRight)||(isRight&&!view.isChecked)){
+                                    return false
+                                }
+                            }
+                        }
                 }
             }
+            return true
+        } else {
+            return null
         }
-        return value
+
+    }
+
+
+    private fun chekifanswerd(): Boolean {
+        var layout = binding.QuestionsLayout
+
+            for (i in 0..layout.childCount) {
+                var view = layout.getChildAt(i)
+                if (view is RadioButton) {
+                    if (view.isChecked) {
+                        return true
+                    }
+                }
+        }
+        return false
     }
 }

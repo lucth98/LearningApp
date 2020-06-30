@@ -50,6 +50,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <Button
+                    android:id="@+id/button_Clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clearButton_text" />
+
+                <LinearLayout
+                    android:id="@+id/QuestionsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+
+                <Button
+                    android:id="@+id/button_finish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Text_finish_Button" />
+
                 <RadioGroup
                     android:id="@+id/RadioGroupQuestions"
                     android:layout_width="160dp"
@@ -57,13 +75,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="411dp"
                     android:visibility="visible"
-                    tools:visibility="visible" />
-
-                <Button
-                    android:id="@+id/button_finish"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Text_finish_Button" />
+                    tools:visibility="gone" />
 
                 <Button
                     android:id="@+id/reset_Button"

@@ -13,4 +13,5 @@
     <string name="ButtonBacktoMenu">Back to Menue</string>
     <string name="BackToLessonButtonText">Back to Lesson</string>
     <string name="setTimeButtonText">set End Time</string>
+    <string name="clearButton_text">Clear Input</string>
 </resources>
