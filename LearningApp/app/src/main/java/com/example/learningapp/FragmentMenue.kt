@@ -54,7 +54,7 @@ class FragmentMenue : Fragment() {
                 subject.path = path
                 subjectlist.add(subject)
             }
-
+            this.displaytofinishdoday(subjectlist)
             for ((index, value) in subjectlist.withIndex()) {
 
                 var button: Button = Button(this.requireContext())
@@ -64,6 +64,29 @@ class FragmentMenue : Fragment() {
             }
         } catch (e: Exception) {
             Timber.i(e)
+        }
+    }
+
+    private fun displaytofinishdoday(subjectlist: MutableList<Subject>)
+    {
+        for(subject in subjectlist){
+            for (lesson in subject.lessons){
+                // if(lesson.getTimeDifference().equals(0)){
+                  //  binding.textViewToFinish.visibility=View.VISIBLE
+                  //  binding.textViewToFinish.text=binding.textViewToFinish.text.toString()+lesson.getName()
+
+              //  }
+                if(lesson.gethasTime()){
+                    if(lesson.getTimeDifference().toInt()==0){
+
+                        if(binding.textViewFinishDisplay.visibility==View.GONE){
+                            binding.textViewFinishDisplay.visibility=View.VISIBLE
+                        }
+                        binding.textViewToFinish.visibility=View.VISIBLE
+                        binding.textViewToFinish.text=binding.textViewToFinish.text.toString()+"\n"+subject.getName()+": "+lesson.getName()
+                    }
+                }
+            }
         }
     }
 
@@ -98,7 +121,7 @@ class FragmentMenue : Fragment() {
     private fun onMenuItemClick(item: MenuItem, itemList: MutableList<String>, subject: Subject): Boolean {
 
         if (item.itemId < itemList.size) {
-            binding.textViewTest.text = itemList[item.itemId]
+         //   binding.textViewTest.text = itemList[item.itemId]
 
             for (less in subject.lessons) {
                 if (less.getName() == itemList[item.itemId]) {
