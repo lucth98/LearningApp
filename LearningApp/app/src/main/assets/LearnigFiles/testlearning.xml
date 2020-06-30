@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE subject SYSTEM "subject.dtd">
-<subject Name="Dummes Fach">
+<subject Name="Test Fach">
     <text>tt</text>
-    <lesson Name="lesson 666" finished="false" endtime="" Image="Fragezeichen.jpg">
-        <text>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+    <lesson Name="lesson 1" finished="false" endtime="" Image="Fragezeichen.jpg">
+        <text>test file
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
             invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
             et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
             ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -13,7 +14,7 @@
             eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
             est Lorem ipsum dolor sit amet.
         </text>
-        <question Name="-1 frage" finished="false">
+        <question Name=" frage 1" finished="false">
             <text>
                 5*5=?
             </text>
@@ -26,6 +27,60 @@
             <answer isCorrect="false">
                 -10
             </answer>
+        </question>
+        <question Name="2 frage" finished="false">
+            <text>
+                5*2=?
+            </text>
+            <answer isCorrect="true">
+                10
+            </answer>
+            <answer isCorrect="false">
+                5
+            </answer>
+            <answer isCorrect="false">
+                -10
+            </answer>
+        </question>
+    </lesson>
+    <lesson Name="lesson 2" finished="false" endtime="">
+        <text>test file lesson 2 </text>
+        <question Name="Question 1" finished="false" >
+            <text>
+                5*5=?
+            </text>
+            <answer isCorrect="true">
+                25
+            </answer>
+            <answer isCorrect="false">
+                5
+            </answer>
+            <answer isCorrect="false">
+                -10
+            </answer>
+        </question>
+    </lesson>
+    <lesson Name="lesson 3" finished="false" endtime="">
+        <text>test file lesson 3  </text>
+        <question Name="Frage 1" finished="false">
+            <text>4!</text>
+            <answer isCorrect="true">24</answer>
+            <answer isCorrect="false">6</answer>
+            <answer isCorrect="false">1243</answer>
+        </question>
+    </lesson>
+    <lesson Name="Lesson 4" finished="false" endtime="">
+        <text>test file
+            lesson 4
+        </text>
+        <question Name="test multiple answers" finished="false">
+            <text>right awnser 2 4 6</text>
+            <answer isCorrect="false">1</answer>
+            <answer isCorrect="true">2</answer>
+            <answer isCorrect="false">3</answer>
+            <answer isCorrect="true">4</answer>
+            <answer isCorrect="false">5</answer>
+            <answer isCorrect="true">6</answer>
         </question>
     </lesson>
 </subject>
