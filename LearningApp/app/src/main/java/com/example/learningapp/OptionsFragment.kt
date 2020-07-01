@@ -50,7 +50,7 @@ class OptionsFragment : Fragment() {
         saveFiles.deleteFile(name)
     }
 
-    //erstellt für jedes File im Internen Speicher einen Reset Button
+    //erstellt für jedes File im Internen Speicher einen Reset-Button
     private fun generateResetButtons() {
         try {
             var saveFiles = SaveFiles(this.requireContext())

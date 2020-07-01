@@ -34,7 +34,7 @@ class FragmentMenue : Fragment() {
         return binding.root
     }
 
-    //speichert die Files in Internal und generiert einen Knopf für Files
+    //speichert die Files im internen Speicher und generiert einen Button für Files
     private fun generateMenue() {
 
         var saveFiles = SaveFiles(this.requireContext())
@@ -67,23 +67,23 @@ class FragmentMenue : Fragment() {
         }
     }
 
-    private fun displaytofinishdoday(subjectlist: MutableList<Subject>)
-    {
-        for(subject in subjectlist){
-            for (lesson in subject.lessons){
+    //zeigt die heute zu beendenden Aufgaben an
+    private fun displaytofinishdoday(subjectlist: MutableList<Subject>) {
+        for (subject in subjectlist) {
+            for (lesson in subject.lessons) {
                 // if(lesson.getTimeDifference().equals(0)){
-                  //  binding.textViewToFinish.visibility=View.VISIBLE
-                  //  binding.textViewToFinish.text=binding.textViewToFinish.text.toString()+lesson.getName()
+                //  binding.textViewToFinish.visibility=View.VISIBLE
+                //  binding.textViewToFinish.text=binding.textViewToFinish.text.toString()+lesson.getName()
 
-              //  }
-                if(lesson.gethasTime()){
-                    if(lesson.getTimeDifference().toInt()==0){
+                //  }
+                if (lesson.gethasTime()) {
+                    if (lesson.getTimeDifference().toInt() == 0) {
 
-                        if(binding.textViewFinishDisplay.visibility==View.GONE){
-                            binding.textViewFinishDisplay.visibility=View.VISIBLE
+                        if (binding.textViewFinishDisplay.visibility == View.GONE) {
+                            binding.textViewFinishDisplay.visibility = View.VISIBLE
                         }
-                        binding.textViewToFinish.visibility=View.VISIBLE
-                        binding.textViewToFinish.text=binding.textViewToFinish.text.toString()+"\n"+subject.getName()+": "+lesson.getName()
+                        binding.textViewToFinish.visibility = View.VISIBLE
+                        binding.textViewToFinish.text = binding.textViewToFinish.text.toString() + "\n" + subject.getName() + ": " + lesson.getName()
                     }
                 }
             }
@@ -121,7 +121,7 @@ class FragmentMenue : Fragment() {
     private fun onMenuItemClick(item: MenuItem, itemList: MutableList<String>, subject: Subject): Boolean {
 
         if (item.itemId < itemList.size) {
-         //   binding.textViewTest.text = itemList[item.itemId]
+            //   binding.textViewTest.text = itemList[item.itemId]
 
             for (less in subject.lessons) {
                 if (less.getName() == itemList[item.itemId]) {

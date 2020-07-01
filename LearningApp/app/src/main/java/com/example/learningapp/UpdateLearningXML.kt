@@ -20,7 +20,7 @@ class UpdateLearningXML(var context: Context) {
     public val questiontag = "question"
     public val lessonntag = "lesson"
 
-    //erstellt ein Document from assets/internen Speicher
+    //erstellt ein document vom assets/internen Speicher
     private fun generateDoc(path: String, fromAssets: Boolean): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
@@ -32,7 +32,7 @@ class UpdateLearningXML(var context: Context) {
         }
     }
 
-    //erstellt ein Document from Externen Speicher
+    //erstellt ein document vom Externen Speicher
     private fun generateDocfromEx(path: String): Document {
         var factory = DocumentBuilderFactory.newInstance()
         var builder = factory.newDocumentBuilder()
@@ -53,9 +53,9 @@ class UpdateLearningXML(var context: Context) {
         this.transform(doc, name)
     }
 
-    //ändert die Zeit einem Lesson File
+    //ändert die Zeit eines Lesson Files
     public fun changeTimeLesson(path: String, learningElement: Lesson, setTime: String) {
-        var doc = this.generateDoc(path, false)//this.generateDoc_InternalStorage(path)
+        var doc = this.generateDoc(path, false)
 
         var nodeList = doc.getElementsByTagName(lessonntag)
 
@@ -72,7 +72,7 @@ class UpdateLearningXML(var context: Context) {
         this.transform(doc, path)
     }
 
-    //setz das Finsch in einen learning elemnt File
+    //setzt das Finsch in einem learning element File
     public fun changeLearnigElement(path: String, learningElement: LearningElement, setFinish: Boolean, tag: String) {
         var doc = this.generateDoc(path, false)//this.generateDoc_InternalStorage(path)
 
@@ -117,6 +117,7 @@ class UpdateLearningXML(var context: Context) {
         }
     }
 
+    //gibt alle Files aus
     private fun tetst() {
         for (string in context.fileList()) {
             Timber.i("Test Filename =" + string)

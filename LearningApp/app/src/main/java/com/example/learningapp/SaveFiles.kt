@@ -8,7 +8,7 @@ import java.io.File
 import java.lang.Exception
 
 class SaveFiles(var context: Context) {
-    //gibt alle Namen der Filles in assets zurück die kein dtd sind zurück
+    //gibt alle Namen der Filles in assets, die kein dtd sind, zurück
     private fun getFilenames(): MutableList<String> {
         var result: MutableList<String> = mutableListOf()
         var assetManager: AssetManager = context.assets
@@ -39,7 +39,7 @@ class SaveFiles(var context: Context) {
         }
     }
 
-    //überprüft ob ein File existiert
+    //überprüft, ob ein File existiert
     public fun checkifFileexist(filname: String): Boolean {
         for (filenameInternal in this.getFilnamesInternalStorage()) {
             if (filname.compareTo(filenameInternal.toString()) == 0) {
@@ -49,7 +49,7 @@ class SaveFiles(var context: Context) {
         return false
     }
 
-    //gibt die namen der Files in Internen Speicher zurück
+    //gibt die Namen der Files in Internen Speicher zurück
     public fun getFilnamesInternalStorage() = context.fileList()
 
     //löscht alle File im Internen Speicher

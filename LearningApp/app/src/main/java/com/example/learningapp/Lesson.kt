@@ -25,7 +25,7 @@ class Lesson() : LearningElement() {
         return value
     }
 
-    //gibt die End Zeit zurück
+    //gibt die Endzeit zurück
     public fun getTime(): String {
         var value: String = "null"
         for (atribut in this.atributList) {
@@ -36,13 +36,13 @@ class Lesson() : LearningElement() {
         return value
     }
 
-    //gibt zurück ob die Zeit abgelaufen ist
+    //gibt zurück, ob ein Enddatum definiert ist
     public fun gethasTime(): Boolean {
         var string = this.getTime()
         return string.compareTo("null") != 0 && string.compareTo("") != 0
     }
 
-    //gibt die Zeitdiffernz zwichen jetzt Zeit und End Zeit zurück
+    //gibt die Zeitdifferenz zwischen Jetztzeit und Endzeit zurück
     public fun getTimeDifference(): Long {
         var endtime = this.getEndtime()
         var currrentTime: Date = Calendar.getInstance().time
@@ -57,7 +57,7 @@ class Lesson() : LearningElement() {
         return format.parse(string)
     }
 
-    //prüft ob die Zeit abgelaufen ist
+    //prüft, ob die Zeit abgelaufen ist
     public fun hasTimerunout(): Boolean {
         var result: Boolean = false
         try {

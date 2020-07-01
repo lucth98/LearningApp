@@ -21,11 +21,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Fragment_info.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Fragment_info : Fragment() {
     //Data Binding
     private lateinit var binding: FragmentInfoBinding
@@ -117,20 +112,20 @@ class Fragment_info : Fragment() {
         }
     }
 
-    //Methode für den Zeitsetzen Button
+    //Methode für den Zeitsetzen-Button
     private fun todateBicker() {
         var action = Fragment_infoDirections.actionFragmentInfoToDatePickerFragment2(lesson)
         findNavController().navigate(action)
     }
 
-    //Methode für den Menue Button
+    //Methode für den Menue-Button
     private fun generateMenue() {
         binding.buttonQuestions.setOnClickListener {
             genPopupMenue(it)
         }
     }
 
-    //erstellt das Popup Menue
+    //erstellt das Popup-Menue
     private fun genPopupMenue(view: View) {
         var popupMenu: PopupMenu = PopupMenu(requireContext(), view)
         var itemList: MutableList<String> = mutableListOf()

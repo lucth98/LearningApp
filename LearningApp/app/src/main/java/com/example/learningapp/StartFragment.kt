@@ -18,14 +18,15 @@ class StartFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-    private fun generateFolder(){
-      /*  try{
-            var extenal=Extenal(this.requireContext())
-            extenal.generateImageFolder()
-        }catch (e:Exception){
-            Timber.i(e)
-        }*/
-    }
+
+    /*private fun generateFolder() {
+        /*  try{
+              var extenal=Extenal(this.requireContext())
+              extenal.generateImageFolder()
+          }catch (e:Exception){
+              Timber.i(e)
+          }*/
+    }*/
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -33,7 +34,7 @@ class StartFragment : Fragment() {
         binding.StartButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_fragmentMenue2))
         binding.OptionButton.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_startFragment_to_optionsFragment))
 
-        this.generateFolder()
+        //  this.generateFolder()
 
         return binding.root
     }

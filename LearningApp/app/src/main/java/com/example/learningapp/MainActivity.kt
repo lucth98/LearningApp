@@ -15,13 +15,13 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
-    //implemtiert den zurück Button
+    //implementiert den Zurück-Button
     override fun onBackPressed() {
         val navController = this.findNavController(R.id.myNavFragment)
         navController.navigateUp()
     }
 
-    //implemtiert den zurück Button
+    //implementiert den Zurück-Button
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavFragment)
         return navController.navigateUp()

@@ -11,12 +11,13 @@ import java.io.InputStream
 
 class ReadLearningXMl(var context: Context, var path: String = "") {
 
-    //generiert den Imput Stream
+    //generiert den Input Stream
     private fun genStream(): InputStream {
         var input: InputStream = context.openFileInput(path)
         return input
     }
 
+    //gibt ein Subject aus
     public fun testSubject(subject: Subject) {
         Timber.i("testSubject _Start")
         Timber.i("testSubject Subject text" + subject.text)
@@ -100,7 +101,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
         return lesson
     }
 
-    //leist eine Frage ein
+    //liest eine Frage ein
     @Throws(XmlPullParserException::class, IOException::class)
     private fun genQuestion(parser: XmlPullParser): Question {
         var question: Question = Question()
@@ -149,7 +150,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
         return question
     }
 
-    //liest eine Antwort
+    //liest eine Antwort ein
     @Throws(XmlPullParserException::class, IOException::class)
     private fun genAnswer(parser: XmlPullParser): Answer {
         var answer = Answer()
@@ -186,7 +187,7 @@ class ReadLearningXMl(var context: Context, var path: String = "") {
         return answer
     }
 
-    //leist ein Learning File
+    //liest ein Learning File ein
     @Throws(XmlPullParserException::class, IOException::class)
     public fun read(): Subject {
         val xmlFactoryObject = XmlPullParserFactory.newInstance()

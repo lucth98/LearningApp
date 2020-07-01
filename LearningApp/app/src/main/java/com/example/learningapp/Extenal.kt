@@ -9,7 +9,7 @@ import java.io.File
 
 class Extenal(var context: Context) {
 
-    //kopiert alle neuen Files von Externen Speicher in den Internen Speicher
+    //kopiert alle neuen Files vom externen Speicher in den internen Speicher
     public fun saveExternalFiles() {
         try {
             var saveFiles = SaveFiles(context)
@@ -35,7 +35,7 @@ class Extenal(var context: Context) {
         }
     }*/
 
-    //gibt alle Filenamen im External Speicher zurück
+    //gibt alle Filenamen im external Speicher zurück
     public fun getFilenames(): MutableList<String> {
         var result = mutableListOf<String>()
 
