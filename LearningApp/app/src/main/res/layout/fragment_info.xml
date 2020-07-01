@@ -26,7 +26,7 @@
                 <TextView
                     android:id="@+id/warnig_textView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:visibility="gone" />
 
                 <Button
@@ -49,7 +49,7 @@
                 <TextView
                     android:id="@+id/textView_info"
                     android:layout_width="match_parent"
-                    android:layout_height="395dp" />
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
         </ScrollView>
